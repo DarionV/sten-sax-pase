@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.horizontal {
+  flex-direction: row;
+}
+
+.m-1 {
+  margin: 1rem;
+}
+
+.m-3 {
+  margin: 3rem;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.players-selection-container {
+  margin: 50px;
+  border: 1px solid red;
+  width: 100%;
+}
+
+.player-selection-container * {
+  margin: 6px;
+}
+
+.player-selection-container {
+  border: 1px solid green;
+}
+
+.avatar-container {
+  height: 140px;
+  width: 140px;
+  border: 1px solid red;
+  border-radius: 50%;
+}
+
+.next-btn,
+.prev-btn {
+  width: 3rem;
+  height: 3rem;
+}
+
+input {
+  height: 3rem;
+}

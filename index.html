@@ -7,23 +7,27 @@
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
   </head>
-  <body>
+  <body class="flex vertical">
     <h1>Sten, sax, påse</h1>
-    <div class="flex horizontal">
-      <div class="flex vertical">
-        <div>
-          <button id="player-avatar-left-btn"></button>
-          <img src="" alt="" />
-          <button id="player-avatar-right-btn"></button>
+    <div class="players-selection-container flex vertical">
+      <div class="player-selection-container flex vertical">
+        <div class="flex">
+          <button id="player-avatar-left-btn" class="prev-btn"></button>
+          <div class="avatar-container m-">
+            <img src="" alt="" />
+          </div>
+          <button id="player-avatar-right-btn" class="next-btn"></button>
         </div>
         <input type="text" name="" id="" />
       </div>
-      <h2>VS.</h2>
-      <div class="flex vertical">
-        <div>
-          <button id="computer-avatar-left-btn"></button>
-          <img src="" alt="" />
-          <button id="computer-avatar-right-btn"></button>
+      <h2 class="m-1">VS.</h2>
+      <div class="player-selection-container flex vertical">
+        <div class="flex">
+          <button id="player-avatar-left-btn" class="prev-btn"></button>
+          <div class="avatar-container m-">
+            <img src="" alt="" />
+          </div>
+          <button id="player-avatar-right-btn" class="next-btn"></button>
         </div>
         <input type="text" name="" id="" />
       </div>
