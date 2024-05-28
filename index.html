@@ -5,31 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock, paper, scissors</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Patua+One&display=swap"
+      rel="stylesheet"
+    />
     <script src="script.js"></script>
   </head>
   <body class="flex vertical">
-    <h1>Sten, sax, påse</h1>
-    <div class="players-selection-container flex vertical">
+    <h1 class="bold">
+      Sten <br />
+      sax <br />
+      påse
+    </h1>
+    <div class="players-selection-container flex vertical regular">
       <div class="player-selection-container flex vertical">
         <div class="flex">
-          <button id="player-avatar-left-btn" class="prev-btn"></button>
-          <div class="avatar-container m-">
-            <img src="" alt="" />
+          <img src="images/arrow.svg" alt="" width="32px" class="prev-btn" />
+          <div class="avatar-container player flex">
+            <img src="images/avatars/bee.png" alt="" />
           </div>
-          <button id="player-avatar-right-btn" class="next-btn"></button>
+          <img src="images/arrow.svg" alt="" width="32px" class="next-btn" />
         </div>
-        <input type="text" name="" id="" />
+        <input
+          type="text"
+          name=""
+          id=""
+          placeholder="Spelare"
+          class="regular"
+        />
       </div>
-      <h2 class="m-1">VS.</h2>
+      <h2>VS.</h2>
       <div class="player-selection-container flex vertical">
         <div class="flex">
-          <button id="player-avatar-left-btn" class="prev-btn"></button>
-          <div class="avatar-container m-">
-            <img src="" alt="" />
+          <img
+            src="images/arrow.svg"
+            alt=""
+            class="prev-btn computer-btn"
+            width="32px"
+          />
+          <div class="avatar-container computer flex">
+            <img src="images/avatars/robot_easy.png" alt="" />
           </div>
-          <button id="player-avatar-right-btn" class="next-btn"></button>
+          <img
+            src="images/arrow.svg"
+            alt=""
+            class="next-btn computer-btn"
+            width="32px"
+          />
         </div>
-        <input type="text" name="" id="" />
+        <h3 id="computer-name">Dator</h3>
       </div>
     </div>
   </body>
