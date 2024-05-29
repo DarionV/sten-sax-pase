@@ -14,11 +14,12 @@
     />
   </head>
   <body class="flex vertical">
+    <button class="exit-button"><img src="images/exit.png" alt="" /></button>
     <div class="header-container">
       <div class="title-container flex">
         <h1 class="bold">Sten, sax, påse</h1>
       </div>
-      <div class="stats-container player flex vertical">
+      <div class="stats-container player flex vertical bold">
         <div class="avatar-container player flex">
           <img src="images/avatars/bird.png" alt="" />
         </div>
@@ -26,7 +27,7 @@
         <h3>Score</h3>
       </div>
 
-      <div class="stats-container computer flex vertical">
+      <div class="stats-container computer flex vertical bold">
         <div class="avatar-container computer flex">
           <img src="images/avatars/robot_easy.png" alt="" />
         </div>
@@ -35,9 +36,13 @@
       </div>
     </div>
 
-    <div class="game-container">
-      <div class="hands-container player"></div>
-      <div class="hands-container computer"></div>
+    <div class="game-container flex">
+      <div class="hands-container player">
+        <img src="images/choices/player_rock.gif" alt="" />
+      </div>
+      <div class="hands-container computer">
+        <img src="images/choices/computer_rock.gif" alt="" />
+      </div>
     </div>
 
     <div class="choices-container flex">
@@ -45,7 +50,5 @@
       <button><img src="images/hand.png" alt="" /></button>
       <button><img src="images/scissors.png" alt="" /></button>
     </div>
-
-    <div class="footer-container"></div>
   </body>
 </html>
