@@ -12,7 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Patua+One&display=swap"
       rel="stylesheet"
     />
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
   </head>
   <body class="flex vertical">
     <button class="exit-button"><img src="images/exit.png" alt="" /></button>
@@ -39,24 +39,30 @@
 
     <div class="game-container flex">
       <div class="hands-container player">
-        <img src="images/choices/player_rock.gif" alt="" />
+        <img src="images/choices/player_rock.gif" alt="" id="player-move" />
       </div>
       <div class="hands-container computer">
-        <img src="images/choices/computer_rock.gif" alt="" />
+        <img src="images/choices/computer_rock.gif" alt="" id="computer-move" />
       </div>
     </div>
 
     <div class="choices-container flex regular">
       <div class="choice-container flex vertical">
-        <button><img src="images/fist.png" alt="" /></button>
+        <button class="choice-button">
+          <img src="images/fist.png" alt="" />
+        </button>
         <h4 class="hotkey">F</h4>
       </div>
       <div class="choice-container flex vertical">
-        <button><img src="images/hand.png" alt="" /></button>
+        <button class="choice-button">
+          <img src="images/hand.png" alt="" />
+        </button>
         <h4 class="hotkey">G</h4>
       </div>
       <div class="choice-container flex vertical">
-        <button><img src="images/scissors.png" alt="" /></button>
+        <button class="choice-button">
+          <img src="images/scissors.png" alt="" />
+        </button>
         <h4 class="hotkey">H</h4>
       </div>
     </div>
