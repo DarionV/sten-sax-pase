@@ -64,6 +64,11 @@ button {
   background-color: unset;
 }
 
+button:hover {
+  scale: 110%;
+  cursor: pointer;
+}
+
 .exit-button {
   margin-left: auto;
   padding: 10px;
@@ -76,6 +81,10 @@ button {
   width: 32px;
 }
 
+.hotkey {
+  display: none;
+}
+
 @media screen and (min-width: 800px) {
   .header-container {
     padding-top: 40px;
@@ -86,6 +95,9 @@ button {
     max-width: 200px;
     text-align: center;
   }
+  h3 {
+    font-size: 3rem;
+  }
 
   .exit-button {
     position: absolute;
@@ -95,6 +107,9 @@ button {
 
   .choices-container {
     padding: 0;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+  }
+  .hotkey {
+    display: inline;
   }
 }
