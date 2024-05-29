@@ -118,3 +118,19 @@ input {
   padding: 12px;
   border-radius: 12px;
 }
+
+@media screen and (min-width: 800px) {
+  :root {
+    font-size: 20px;
+  }
+  .players-selection-container {
+    flex-direction: row;
+    gap: 50px;
+    margin-bottom: 50px;
+  }
+
+  .avatar-container {
+    width: 200px;
+    height: 200px;
+  }
+}
