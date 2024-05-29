@@ -1,0 +1,52 @@
+body {
+  /* border: 5px solid rgb(16, 177, 131); */
+}
+
+.header-container {
+  border: 3px solid red;
+  width: 100%;
+  display: grid;
+  grid-template-areas:
+    "title title title title"
+    "player player computer computer";
+}
+
+.stats-container {
+  /* border: 1px solid blue; */
+  padding: 12px;
+}
+
+.avatar-container {
+  margin: 12px;
+}
+
+.stats-container.player {
+  grid-area: player;
+}
+.stats-container.computer {
+  grid-area: computer;
+}
+
+.title-container {
+  grid-area: title;
+  border: 1px solid brown;
+}
+
+.game-container {
+  border: 2px solid green;
+  width: 100%;
+  flex: 4;
+  display: flex;
+}
+
+.choices-container {
+  border: 1px solid black;
+  flex: 1;
+  width: 100%;
+}
+
+.footer-container {
+  border: 1px solid black;
+  width: 100%;
+  flex: 1;
+}

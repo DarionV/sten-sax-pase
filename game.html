@@ -4,23 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock, paper, scissors</title>
+    <link rel="stylesheet" href="styles/game.css" />
+    <link rel="stylesheet" href="styles/style.css" />
   </head>
-  <body>
+  <body class="flex vertical">
     <div class="header-container">
-      <div class="title-container">
+      <div class="title-container flex">
         <h1>Sten, sax, påse</h1>
       </div>
-      <div class="stats-container">
-        <div class="avatar-container">
-          <img src="" alt="" />
+      <div class="stats-container player flex vertical">
+        <div class="avatar-container player flex">
+          <img src="images/avatars/bird.png" alt="" />
         </div>
         <h2>Spelare</h2>
         <h3>Score</h3>
       </div>
 
-      <div class="stats-container">
-        <div class="avatar-container">
-          <img src="" alt="" />
+      <div class="stats-container computer flex vertical">
+        <div class="avatar-container computer flex">
+          <img src="images/avatars/robot_easy.png" alt="" />
         </div>
         <h2>Dator</h2>
         <h3>Score</h3>
@@ -28,11 +30,15 @@
     </div>
 
     <div class="game-container">
-      <div class="player-hands-container"></div>
-      <div class="computer-hands-container"></div>
+      <div class="hands-container player"></div>
+      <div class="hands-container computer"></div>
     </div>
 
-    <div class="choices-container"></div>
+    <div class="choices-container flex">
+      <button><img src="images/fist.png" alt="" /></button>
+      <button><img src="images/hand.png" alt="" /></button>
+      <button><img src="images/scissors.png" alt="" /></button>
+    </div>
 
     <div class="footer-container"></div>
   </body>
