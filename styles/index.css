@@ -77,19 +77,11 @@ input:focus::placeholder {
 }
 
 @media screen and (min-width: 800px) {
-  :root {
-    font-size: 20px;
-  }
   .players-selection-container {
     flex-direction: row;
     gap: 50px;
     margin-bottom: 50px;
     /* border: 1px solid red; */
-  }
-
-  .avatar-container {
-    width: 200px;
-    height: 200px;
   }
 
   .players-selection-container div:last-child {

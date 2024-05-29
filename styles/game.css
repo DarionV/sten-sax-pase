@@ -66,13 +66,35 @@ button {
 
 .exit-button {
   margin-left: auto;
-  padding: 20px;
+  padding: 10px;
   opacity: 50%;
-  /* position: absolute;
-  right: 0px;
-  top: 0px; */
+  cursor: pointer;
+  /* border: 1px solid red; */
 }
 
 .exit-button img {
   width: 32px;
+}
+
+@media screen and (min-width: 800px) {
+  .header-container {
+    padding-top: 40px;
+    grid-template-areas: "player title computer";
+  }
+  h1 {
+    font-size: 5rem;
+    max-width: 200px;
+    text-align: center;
+  }
+
+  .exit-button {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+  }
+
+  .choices-container {
+    padding: 0;
+    margin-bottom: 20px;
+  }
 }
