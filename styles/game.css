@@ -39,6 +39,20 @@ body {
   width: 100%;
   flex: 4;
   display: flex;
+  position: relative;
+}
+
+.hands-container.player {
+  position: absolute;
+  border: 1px solid rgb(0, 72, 255);
+  left: 0;
+  height: 50vw;
+}
+.hands-container.computer {
+  position: absolute;
+  border: 1px solid red;
+  right: 0;
+  height: 50vw;
 }
 
 .hands-container img {
@@ -46,6 +60,15 @@ body {
   width: 100%;
   object-fit: contain;
 }
+
+/* .hands-container.player img {
+  height: 300px;
+  width: 300px;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+} */
 
 .choices-container {
   /* border: 1px solid black; */
