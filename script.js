@@ -1,6 +1,8 @@
 const gameRenderer = (function () {
   const computerMove = document.querySelector("#computer-move");
-  const playerMove = document.querySelector("#player-move");
+  const playerMoveRock = document.querySelector("#player-move-rock");
+  const playerMovePaper = document.querySelector("#player-move-paper");
+  const playerMoveScissors = document.querySelector("#player-move-scissors");
 
   const playerScore = document.querySelector("#player-score");
   const computerScore = document.querySelector("#computer-score");
@@ -25,21 +27,10 @@ const gameRenderer = (function () {
     }
   };
 
-  const renderPlayerMove = (move) => {
-    switch (move) {
-      case 0:
-        playerMove.src = "/images/choices/player_rock.gif";
-        break;
-      case 1:
-        playerMove.src = "/images/choices/player_paper.gif";
-        break;
-      case 2:
-        playerMove.src = "/images/choices/player_scissors.gif";
-        break;
-      default:
-        console.log("Unable to render player move");
-        break;
-    }
+  const renderPlayerMove = () => {
+    playerMoveRock.src = "/images/choices/player_rock_easy.gif";
+    playerMovePaper.src = "/images/choices/player_paper_easy.gif";
+    playerMoveScissors.src = "/images/choices/player_scissors_easy.gif";
   };
 
   return {
@@ -58,6 +49,7 @@ const gameController = (function () {
       switch (button.className) {
         case "choice-button":
           makeComputerMove();
+          makePlayerMove();
           break;
         default:
           break;
@@ -65,11 +57,14 @@ const gameController = (function () {
     });
   });
 
+  let delayInSeconds = 0.3;
+
   let playerScore = 0;
   let computerScore = 0;
 
-  let computerSelection = -1;
-  let playerSelection = -1;
+  //   0 = Sten, 1 = Sax, 2 = Påse
+  let computerSelection = 0;
+  let playerSelection = 0;
 
   const getPlayerScore = () => playerScore;
   const getComputerScore = () => computerScore;
@@ -108,6 +103,14 @@ const gameController = (function () {
     const move = generateRandomMove();
     gameRenderer.renderComputerMove(move);
     computerSelection = move;
+  }
+
+  function makePlayerMove() {
+    setTimeout(() => {
+      // Sten alltid default
+      gameRenderer.renderPlayerMove(0);
+      playerSelection = 0;
+    }, delayInSeconds * 1000);
   }
 
   return {
