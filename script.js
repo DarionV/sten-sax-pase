@@ -27,11 +27,13 @@ const gameRenderer = (function () {
     }
   };
 
-  const renderPlayerMove = (move) => {
+  function reloadPlayerAnimations() {
     playerMoveRock.src = "/images/choices/player_rock_easy.gif";
     playerMovePaper.src = "/images/choices/player_paper_easy.gif";
     playerMoveScissors.src = "/images/choices/player_scissors_easy.gif";
+  }
 
+  const renderPlayerMove = (move) => {
     document.querySelector("#player-rock-container").style.zIndex = "1";
     document.querySelector("#player-paper-container").style.zIndex = "1";
     document.querySelector("#player-scissors-container").style.zIndex = "1";
@@ -61,31 +63,11 @@ const gameRenderer = (function () {
     renderPlayerScore,
     renderComputerMove,
     renderPlayerMove,
+    reloadPlayerAnimations,
   };
 })();
 
 const gameController = (function () {
-  const buttons = document.querySelectorAll("button");
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      makeComputerMove();
-      switch (button.id) {
-        case "rock-button":
-          makePlayerMove(0);
-          break;
-        case "paper-button":
-          makePlayerMove(1);
-          break;
-        case "scissors-button":
-          makePlayerMove(2);
-          break;
-        default:
-          break;
-      }
-    });
-  });
-
   let playerMoveDelayInSeconds = 0.3;
 
   let playerScore = 0;
@@ -94,6 +76,30 @@ const gameController = (function () {
   //   0 = Sten, 1 = Sax, 2 = Påse
   let computerSelection = 0;
   let playerSelection = 0;
+
+  let hasMadeFirstChoice = false;
+  let hasMadeSecondChoice = false;
+
+  const buttons = document.querySelectorAll("button");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // makeComputerMove();
+      switch (button.id) {
+        case "rock-button":
+          startRound(0);
+          break;
+        case "paper-button":
+          startRound(1);
+          break;
+        case "scissors-button":
+          startRound(2);
+          break;
+        default:
+          break;
+      }
+    });
+  });
 
   const getPlayerScore = () => playerScore;
   const getComputerScore = () => computerScore;
@@ -131,11 +137,27 @@ const gameController = (function () {
     computerSelection = move;
   }
 
-  function makePlayerMove(move) {
+  function startRound(playerMove) {
+    if (hasMadeSecondChoice) return;
+
+    if (hasMadeFirstChoice) {
+      hasMadeSecondChoice = true;
+      makePlayerMove(playerMove);
+      return;
+    }
+
+    makeComputerMove();
+    hasMadeFirstChoice = true;
     setTimeout(() => {
-      gameRenderer.renderPlayerMove(move);
-      playerSelection = move;
+      makePlayerMove(playerMove, true);
     }, playerMoveDelayInSeconds * 1000);
+  }
+
+  function makePlayerMove(move, isFirstMove) {
+    if (isFirstMove) gameRenderer.reloadPlayerAnimations();
+
+    playerSelection = move;
+    gameRenderer.renderPlayerMove(move);
   }
 
   return {
