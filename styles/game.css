@@ -147,7 +147,7 @@ button:hover {
 }
 
 .timer-easy:after {
-  animation-duration: 2s;
+  animation-duration: 1.6s;
 }
 
 @keyframes timerAniAfter {

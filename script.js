@@ -91,6 +91,9 @@ const gameController = (function () {
   let hasMadeFirstChoice = false;
   let hasMadeSecondChoice = false;
   let allowSecondChoice = false;
+  let secondChoiceTimerInSeconds = 1.6;
+
+  let isPlaying = false;
 
   const buttons = document.querySelectorAll(".choice-button");
 
@@ -139,7 +142,8 @@ const gameController = (function () {
   function playRound(playerMove) {
     startRound(playerMove);
     // Kalla endast endRound vid första valet.
-    if (hasMadeSecondChoice) return;
+    if (hasMadeSecondChoice || isPlaying) return;
+    isPlaying = true;
     setTimeout(() => {
       endRound();
     }, playerAnimationDurationInSeconds * 1000);
@@ -162,6 +166,10 @@ const gameController = (function () {
     hasMadeFirstChoice = true;
 
     setTimeout(() => {
+      setTimeout(() => {
+        disableSecondChoice();
+      }, secondChoiceTimerInSeconds * 1000);
+
       gameRenderer.renderTimer();
       gameRenderer.reloadPlayerAnimations();
       makePlayerMove(playerMove);
@@ -173,6 +181,10 @@ const gameController = (function () {
     console.log("Round end");
     hasMadeFirstChoice = false;
     hasMadeSecondChoice = false;
+    isPlaying = false;
+  }
+
+  function disableSecondChoice() {
     allowSecondChoice = false;
     gameRenderer.hideTimer();
   }
