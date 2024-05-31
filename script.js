@@ -52,10 +52,6 @@ const gameRenderer = (function () {
       default:
         break;
     }
-
-    // setTimeout(() => {
-    //   playerMoveScissors.remove();
-    // }, 1800);
   };
 
   return {
@@ -68,7 +64,8 @@ const gameRenderer = (function () {
 })();
 
 const gameController = (function () {
-  let playerMoveDelayInSeconds = 0.3;
+  let playerMoveDelayInSeconds = 0.7;
+  let playerAnimationDurationInSeconds = playerMoveDelayInSeconds + 2;
 
   let playerScore = 0;
   let computerScore = 0;
@@ -80,24 +77,11 @@ const gameController = (function () {
   let hasMadeFirstChoice = false;
   let hasMadeSecondChoice = false;
 
-  const buttons = document.querySelectorAll("button");
+  const buttons = document.querySelectorAll(".choice-button");
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      // makeComputerMove();
-      switch (button.id) {
-        case "rock-button":
-          startRound(0);
-          break;
-        case "paper-button":
-          startRound(1);
-          break;
-        case "scissors-button":
-          startRound(2);
-          break;
-        default:
-          break;
-      }
+      playRound(+button.id);
     });
   });
 
@@ -137,25 +121,45 @@ const gameController = (function () {
     computerSelection = move;
   }
 
+  function playRound(playerMove) {
+    startRound(playerMove);
+    // Kalla endast endRound vid första valet.
+    if (hasMadeSecondChoice) return;
+    setTimeout(() => {
+      endRound();
+    }, playerAnimationDurationInSeconds * 1000);
+  }
+
   function startRound(playerMove) {
     if (hasMadeSecondChoice) return;
 
     if (hasMadeFirstChoice) {
+      console.log("Second move");
       hasMadeSecondChoice = true;
       makePlayerMove(playerMove);
       return;
     }
 
+    console.log("First move");
+
     makeComputerMove();
     hasMadeFirstChoice = true;
+
     setTimeout(() => {
-      makePlayerMove(playerMove, true);
+      gameRenderer.reloadPlayerAnimations();
+      makePlayerMove(playerMove);
     }, playerMoveDelayInSeconds * 1000);
   }
 
-  function makePlayerMove(move, isFirstMove) {
-    if (isFirstMove) gameRenderer.reloadPlayerAnimations();
+  function endRound() {
+    console.log("Round end");
+    hasMadeFirstChoice = false;
+    hasMadeSecondChoice = false;
+  }
 
+  function evaluateResult() {}
+
+  function makePlayerMove(move) {
     playerSelection = move;
     gameRenderer.renderPlayerMove(move);
   }
