@@ -17,7 +17,7 @@ body {
   top: 40%;
   left: 0;
   z-index: 20;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .stats-container {
@@ -41,6 +41,7 @@ body {
   /* padding: 34px; */
   grid-area: title;
   /* border: 1px solid brown; */
+  z-index: 100;
 }
 
 .game-container {
@@ -53,15 +54,17 @@ body {
 
 .hands-container.player {
   position: absolute;
-  border: 1px solid rgb(0, 72, 255);
+  /* border: 1px solid rgb(0, 72, 255); */
   left: 0;
   height: 50vw;
+  max-height: 200px;
 }
 .hands-container.computer {
   position: absolute;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   right: 0;
   height: 50vw;
+  max-height: 200px;
 }
 
 .hands-container img {
@@ -85,6 +88,7 @@ body {
   width: 100%;
   gap: 32px;
   padding: 40px;
+  z-index: 100;
 }
 
 .choices-container img {
@@ -119,7 +123,7 @@ button:hover {
 
 /* TIMER */
 .timer {
-  opacity: 50%;
+  /* opacity: 50%; */
   width: 50px;
   height: 50px;
   /* border: 2px solid DeepPink; */
@@ -196,5 +200,26 @@ button:hover {
   }
   .hotkey {
     display: inline;
+  }
+  .hands-container.player {
+    /* border: 1px solid rgb(0, 72, 255); */
+    left: 25vw;
+    height: 20vw;
+    min-height: 200px;
+    max-height: 500px;
+    top: -5vw;
+  }
+  .hands-container.computer {
+    /* position: absolute; */
+    /* border: 1px solid red; */
+    right: 25vw;
+    height: 20vw;
+    min-height: 200px;
+    max-height: 500px;
+
+    top: -5vw;
+  }
+  .text-overlay-container {
+    top: 55vh;
   }
 }
