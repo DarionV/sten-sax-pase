@@ -7,6 +7,10 @@ const gameRenderer = (function () {
   const playerScore = document.querySelector("#player-score");
   const computerScore = document.querySelector("#computer-score");
 
+  const timer = document.querySelector(".timer");
+  // timer.style.animationDuration = "1s";
+  console.log(timer.style.animationDuration);
+
   const renderPlayerScore = (value) => (playerScore.textContent = value);
   const renderComputerScore = (value) => (computerScore.textContent = value);
 
@@ -31,6 +35,14 @@ const gameRenderer = (function () {
     playerMoveRock.src = "/images/choices/player_rock_easy.gif";
     playerMovePaper.src = "/images/choices/player_paper_easy.gif";
     playerMoveScissors.src = "/images/choices/player_scissors_easy.gif";
+  }
+
+  function hideTimer() {
+    timer.style.display = "none";
+  }
+
+  function renderTimer() {
+    timer.style.display = "inline";
   }
 
   const renderPlayerMove = (move) => {
@@ -60,6 +72,8 @@ const gameRenderer = (function () {
     renderComputerMove,
     renderPlayerMove,
     reloadPlayerAnimations,
+    renderTimer,
+    hideTimer,
   };
 })();
 
@@ -148,6 +162,7 @@ const gameController = (function () {
     hasMadeFirstChoice = true;
 
     setTimeout(() => {
+      gameRenderer.renderTimer();
       gameRenderer.reloadPlayerAnimations();
       makePlayerMove(playerMove);
       allowSecondChoice = true;
@@ -159,6 +174,7 @@ const gameController = (function () {
     hasMadeFirstChoice = false;
     hasMadeSecondChoice = false;
     allowSecondChoice = false;
+    gameRenderer.hideTimer();
   }
 
   function evaluateResult() {}
@@ -183,5 +199,6 @@ const gameController = (function () {
 })();
 
 const gameLoop = (function () {
+  gameRenderer.hideTimer();
   gameController.resetScores();
 })();
