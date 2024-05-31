@@ -12,11 +12,16 @@
       href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Patua+One&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <script src="script.js" defer></script>
   </head>
   <body class="flex vertical">
     <div class="text-overlay-container flex">
       <div class="timer timer-easy"></div>
+      <h3 class="bold text-overlay"></h3>
     </div>
     <button class="exit-button"><img src="images/exit.png" alt="" /></button>
     <div class="header-container">
@@ -28,7 +33,7 @@
           <img src="images/avatars/bird.png" alt="" />
         </div>
         <h2>Spelare</h2>
-        <h3 id="player-score">Score</h3>
+        <h3 id="player-score" class="score-container">Score</h3>
       </div>
 
       <div class="stats-container computer flex vertical bold">

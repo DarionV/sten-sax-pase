@@ -7,6 +7,8 @@ const gameRenderer = (function () {
   const playerScore = document.querySelector("#player-score");
   const computerScore = document.querySelector("#computer-score");
 
+  const textOverlay = document.querySelector(".text-overlay");
+
   const timer = document.querySelector(".timer");
   // timer.style.animationDuration = "1s";
   console.log(timer.style.animationDuration);
@@ -45,6 +47,15 @@ const gameRenderer = (function () {
     timer.style.display = "inline";
   }
 
+  const hideText = () => (textOverlay.textContent = "");
+
+  const renderText = (message) => {
+    textOverlay.textContent = message;
+    setTimeout(() => {
+      hideText();
+    }, 2000);
+  };
+
   const renderPlayerMove = (move) => {
     document.querySelector("#player-rock-container").style.zIndex = "1";
     document.querySelector("#player-paper-container").style.zIndex = "1";
@@ -74,6 +85,7 @@ const gameRenderer = (function () {
     reloadPlayerAnimations,
     renderTimer,
     hideTimer,
+    renderText,
   };
 })();
 
@@ -94,6 +106,8 @@ const gameController = (function () {
   let secondChoiceTimerInSeconds = 1.6;
 
   let isPlaying = false;
+
+  let RESULT_DELAY_IN_SECONDS = 0.5;
 
   const buttons = document.querySelectorAll(".choice-button");
 
@@ -182,6 +196,7 @@ const gameController = (function () {
     hasMadeFirstChoice = false;
     hasMadeSecondChoice = false;
     isPlaying = false;
+    evaluateResult();
   }
 
   function disableSecondChoice() {
@@ -189,7 +204,43 @@ const gameController = (function () {
     gameRenderer.hideTimer();
   }
 
-  function evaluateResult() {}
+  function evaluateResult() {
+    setTimeout(() => {
+      switch (playerSelection) {
+        case 0:
+          if (computerSelection === 0) tie();
+          if (computerSelection === 1) lose();
+          if (computerSelection === 2) win();
+          break;
+        case 1:
+          if (computerSelection === 0) win();
+          if (computerSelection === 1) tie();
+          if (computerSelection === 2) lose();
+          break;
+        case 2:
+          if (computerSelection === 0) lose();
+          if (computerSelection === 1) win();
+          if (computerSelection === 2) tie();
+          break;
+        default:
+          break;
+      }
+    }, RESULT_DELAY_IN_SECONDS * 1000);
+  }
+
+  function win() {
+    playerScore++;
+    gameRenderer.renderText("You win");
+  }
+
+  function lose() {
+    computerScore++;
+    console.log("you lose");
+  }
+
+  function tie() {
+    console.log("tie");
+  }
 
   function makePlayerMove(move) {
     playerSelection = move;
