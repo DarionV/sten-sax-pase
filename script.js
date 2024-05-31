@@ -76,6 +76,7 @@ const gameController = (function () {
 
   let hasMadeFirstChoice = false;
   let hasMadeSecondChoice = false;
+  let allowSecondChoice = false;
 
   const buttons = document.querySelectorAll(".choice-button");
 
@@ -134,6 +135,7 @@ const gameController = (function () {
     if (hasMadeSecondChoice) return;
 
     if (hasMadeFirstChoice) {
+      if (!allowSecondChoice) return;
       console.log("Second move");
       hasMadeSecondChoice = true;
       makePlayerMove(playerMove);
@@ -148,6 +150,7 @@ const gameController = (function () {
     setTimeout(() => {
       gameRenderer.reloadPlayerAnimations();
       makePlayerMove(playerMove);
+      allowSecondChoice = true;
     }, playerMoveDelayInSeconds * 1000);
   }
 
@@ -155,6 +158,7 @@ const gameController = (function () {
     console.log("Round end");
     hasMadeFirstChoice = false;
     hasMadeSecondChoice = false;
+    allowSecondChoice = false;
   }
 
   function evaluateResult() {}
