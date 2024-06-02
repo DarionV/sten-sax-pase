@@ -26,10 +26,6 @@ body {
   gap: 10px;
 }
 
-.score-container {
-  animation: bounceIn 1s;
-}
-
 .avatar-container {
   margin: 12px;
 }

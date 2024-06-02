@@ -13,7 +13,13 @@ const gameRenderer = (function () {
   // timer.style.animationDuration = "1s";
   console.log(timer.style.animationDuration);
 
-  const renderPlayerScore = (value) => (playerScore.textContent = value);
+  const renderPlayerScore = (value) => {
+    // playerScore.classList.remove("bounce-animation");
+    playerScore.style.animation = "none";
+    playerScore.offsetHeight;
+    playerScore.style.animation = "bounceIn 1s";
+    playerScore.textContent = value;
+  };
   const renderComputerScore = (value) => (computerScore.textContent = value);
 
   const renderComputerMove = (move) => {
@@ -230,7 +236,7 @@ const gameController = (function () {
 
   function win() {
     playerScore++;
-    gameRenderer.renderText("You win");
+    gameRenderer.renderPlayerScore(playerScore);
   }
 
   function lose() {
