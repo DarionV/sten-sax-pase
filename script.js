@@ -14,13 +14,20 @@ const gameRenderer = (function () {
   console.log(timer.style.animationDuration);
 
   const renderPlayerScore = (value) => {
-    // playerScore.classList.remove("bounce-animation");
     playerScore.style.animation = "none";
+    // Trigga reflow, så att animationen körs på nytt
     playerScore.offsetHeight;
     playerScore.style.animation = "bounceIn 1s";
     playerScore.textContent = value;
   };
-  const renderComputerScore = (value) => (computerScore.textContent = value);
+
+  const renderComputerScore = (value) => {
+    computerScore.style.animation = "none";
+    // Trigga reflow, så att animationen körs på nytt
+    computerScore.offsetHeight;
+    computerScore.style.animation = "bounceIn 1s";
+    computerScore.textContent = value;
+  };
 
   const renderComputerMove = (move) => {
     switch (move) {
@@ -39,6 +46,13 @@ const gameRenderer = (function () {
     }
   };
 
+  function renderGameOverText(message) {
+    textOverlay.textContent = message;
+    setTimeout(() => {
+      hideText();
+    }, 2000);
+  }
+
   function reloadPlayerAnimations() {
     playerMoveRock.src = "/images/choices/player_rock_easy.gif";
     playerMovePaper.src = "/images/choices/player_paper_easy.gif";
@@ -54,13 +68,6 @@ const gameRenderer = (function () {
   }
 
   const hideText = () => (textOverlay.textContent = "");
-
-  const renderText = (message) => {
-    textOverlay.textContent = message;
-    setTimeout(() => {
-      hideText();
-    }, 2000);
-  };
 
   const renderPlayerMove = (move) => {
     document.querySelector("#player-rock-container").style.zIndex = "1";
@@ -91,7 +98,7 @@ const gameRenderer = (function () {
     reloadPlayerAnimations,
     renderTimer,
     hideTimer,
-    renderText,
+    renderGameOverText,
   };
 })();
 
@@ -214,19 +221,19 @@ const gameController = (function () {
     setTimeout(() => {
       switch (playerSelection) {
         case 0:
-          if (computerSelection === 0) tie();
+          // if (computerSelection === 0) tie();
           if (computerSelection === 1) lose();
           if (computerSelection === 2) win();
           break;
         case 1:
           if (computerSelection === 0) win();
-          if (computerSelection === 1) tie();
+          // if (computerSelection === 1) tie();
           if (computerSelection === 2) lose();
           break;
         case 2:
           if (computerSelection === 0) lose();
           if (computerSelection === 1) win();
-          if (computerSelection === 2) tie();
+          // if (computerSelection === 2) tie();
           break;
         default:
           break;
@@ -234,18 +241,21 @@ const gameController = (function () {
     }, RESULT_DELAY_IN_SECONDS * 1000);
   }
 
+  function isGameOver() {
+    if (playerScore === 5 || computerScore === 5) return 1;
+    else return 0;
+  }
+
   function win() {
     playerScore++;
     gameRenderer.renderPlayerScore(playerScore);
+    if (isGameOver()) gameRenderer.renderGameOverText("Du vann!");
   }
 
   function lose() {
     computerScore++;
-    console.log("you lose");
-  }
-
-  function tie() {
-    console.log("tie");
+    gameRenderer.renderComputerScore(computerScore);
+    if (isGameOver()) gameRenderer.renderGameOverText("Du förlorade");
   }
 
   function makePlayerMove(move) {
