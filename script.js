@@ -327,6 +327,6 @@ const gameController = (function () {
 const gameLoop = (function () {
   gameRenderer.hideTimer();
   gameRenderer.renderCountDown();
-  gameController.resetScores();
+  // gameController.resetScores();
   gameRenderer.renderPlayerStartAnimation();
 })();
