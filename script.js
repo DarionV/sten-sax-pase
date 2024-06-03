@@ -53,6 +53,26 @@ const gameRenderer = (function () {
     }, 2000);
   }
 
+  function renderCountDown() {
+    setTimeout(() => {
+      renderGameOverText("KLARA");
+      setTimeout(() => {
+        renderGameOverText("FÄRDIGA");
+      }, 400);
+      setTimeout(() => {
+        renderGameOverText("GÅ!");
+      }, 800);
+      setTimeout(() => {
+        hideText();
+      }, 1200);
+    }, 200);
+  }
+
+  function renderPlayerStartAnimation() {
+    document.querySelector("#player-rock-container").style.zIndex = "10";
+    playerMoveRock.src = "/images/choices/player_rock.gif";
+  }
+
   function reloadPlayerAnimations() {
     playerMoveRock.src = "/images/choices/player_rock_easy.gif";
     playerMovePaper.src = "/images/choices/player_paper_easy.gif";
@@ -102,6 +122,8 @@ const gameRenderer = (function () {
     hideTimer,
     renderGameOverText,
     hideText,
+    renderCountDown,
+    renderPlayerStartAnimation,
   };
 })();
 
@@ -304,5 +326,7 @@ const gameController = (function () {
 
 const gameLoop = (function () {
   gameRenderer.hideTimer();
+  gameRenderer.renderCountDown();
   gameController.resetScores();
+  gameRenderer.renderPlayerStartAnimation();
 })();
