@@ -2,6 +2,14 @@ body {
   /* border: 5px solid rgb(16, 177, 131); */
 }
 
+img {
+  user-drag: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}
+
 .header-container {
   /* border: 3px solid red; */
   width: 100%;
