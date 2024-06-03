@@ -49,7 +49,7 @@ const gameRenderer = (function () {
   function renderGameOverText(message) {
     textOverlay.textContent = message;
     setTimeout(() => {
-      hideText();
+      // hideText();
     }, 2000);
   }
 
@@ -67,7 +67,9 @@ const gameRenderer = (function () {
     timer.style.display = "inline";
   }
 
-  const hideText = () => (textOverlay.textContent = "");
+  const hideText = () => {
+    textOverlay.textContent = "";
+  };
 
   const renderPlayerMove = (move) => {
     document.querySelector("#player-rock-container").style.zIndex = "1";
@@ -99,6 +101,7 @@ const gameRenderer = (function () {
     renderTimer,
     hideTimer,
     renderGameOverText,
+    hideText,
   };
 })();
 
@@ -121,6 +124,8 @@ const gameController = (function () {
   let isPlaying = false;
 
   let RESULT_DELAY_IN_SECONDS = 0.5;
+  let ROUND_END_DELAY_IN_SECONDS = 1.5;
+  let SCORE_LIMIT = 5;
 
   const buttons = document.querySelectorAll(".choice-button");
 
@@ -168,12 +173,14 @@ const gameController = (function () {
 
   function playRound(playerMove) {
     startRound(playerMove);
+    gameRenderer.hideText();
+    if (isGameOver()) resetScores();
     // Kalla endast endRound vid första valet.
     if (hasMadeSecondChoice || isPlaying) return;
     isPlaying = true;
     setTimeout(() => {
       endRound();
-    }, playerAnimationDurationInSeconds * 1000);
+    }, (playerAnimationDurationInSeconds + ROUND_END_DELAY_IN_SECONDS) * 1000);
   }
 
   function startRound(playerMove) {
@@ -183,6 +190,7 @@ const gameController = (function () {
       if (!allowSecondChoice) return;
       console.log("Second move");
       hasMadeSecondChoice = true;
+      disableButtons();
       makePlayerMove(playerMove);
       return;
     }
@@ -210,11 +218,13 @@ const gameController = (function () {
     hasMadeSecondChoice = false;
     isPlaying = false;
     evaluateResult();
+    enableButtons();
   }
 
   function disableSecondChoice() {
     allowSecondChoice = false;
     gameRenderer.hideTimer();
+    disableButtons();
   }
 
   function evaluateResult() {
@@ -242,7 +252,7 @@ const gameController = (function () {
   }
 
   function isGameOver() {
-    if (playerScore === 5 || computerScore === 5) return 1;
+    if (playerScore === SCORE_LIMIT || computerScore === SCORE_LIMIT) return 1;
     else return 0;
   }
 
@@ -261,6 +271,18 @@ const gameController = (function () {
   function makePlayerMove(move) {
     playerSelection = move;
     gameRenderer.renderPlayerMove(move);
+  }
+
+  function disableButtons() {
+    for (const button of buttons) {
+      button.classList.add("disabled");
+    }
+  }
+
+  function enableButtons() {
+    for (const button of buttons) {
+      button.classList.remove("disabled");
+    }
   }
 
   return {

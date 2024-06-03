@@ -18,6 +18,11 @@ body {
   left: 0;
   z-index: 20;
   /* border: 1px solid red; */
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  /* backdrop-filter: blur(5px); */
+  -webkit-text-stroke: 6px rgb(255, 255, 255);
+
+  padding-top: 25px;
 }
 
 .stats-container {
@@ -98,11 +103,20 @@ body {
 button {
   border: none;
   background-color: unset;
+  cursor: pointer;
 }
 
 button:hover {
   scale: 110%;
-  cursor: pointer;
+}
+
+button.disabled:hover {
+  scale: 100%;
+}
+
+.disabled {
+  cursor: initial;
+  opacity: 50%;
 }
 
 .exit-button {
