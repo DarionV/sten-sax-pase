@@ -179,6 +179,9 @@ const gameController = (function () {
     if (hasMadeSecondChoice || isPlaying) return;
     isPlaying = true;
     setTimeout(() => {
+      evaluateResult();
+    }, playerAnimationDurationInSeconds * 1000);
+    setTimeout(() => {
       endRound();
     }, (playerAnimationDurationInSeconds + ROUND_END_DELAY_IN_SECONDS) * 1000);
   }
@@ -217,7 +220,7 @@ const gameController = (function () {
     hasMadeFirstChoice = false;
     hasMadeSecondChoice = false;
     isPlaying = false;
-    evaluateResult();
+    // evaluateResult();
     enableButtons();
   }
 
