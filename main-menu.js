@@ -8,9 +8,9 @@ const menuRenderer = (function () {
   );
 
   function renderPlayerAvatar(avatar, color) {
-    console.log("rendering player avatar");
     renderAvatar(playerAvatarContainer, playerAvatar, avatar, color);
   }
+
   function renderComputerAvatar(avatar, color) {
     renderAvatar(computerAvatarContainer, avatar, color);
   }
@@ -20,7 +20,9 @@ const menuRenderer = (function () {
     container.style.backgroundColor = color;
   }
 
-  return { renderPlayerAvatar, renderComputerAvatar };
+  const getPlayerAvatar = () => playerAvatar.getAttribute("src");
+
+  return { renderPlayerAvatar, renderComputerAvatar, getPlayerAvatar };
 })();
 
 const menuController = (function () {
@@ -46,18 +48,43 @@ const menuController = (function () {
     "images/avatars/cow.png",
     "images/avatars/fish.png",
     "images/avatars/pig.png",
+    "images/avatars/cat.png",
+    "images/avatars/dog.png",
+    "images/avatars/koala.png",
+    "images/avatars/penguin.png",
+    "images/avatars/monkey.png",
   ];
 
-  playerAvatarNextButton.addEventListener("click", getNextPlayerAvatar);
+  playerAvatarNextButton.addEventListener("click", () => {
+    menuRenderer.renderPlayerAvatar(getNextPlayerAvatar());
+  });
 
-  function getNextPlayerAvatar() {}
-  function getPrevPlayerAvatar() {}
+  playerAvatarPrevButton.addEventListener("click", () => {
+    menuRenderer.renderPlayerAvatar(getPrevPlayerAvatar());
+  });
+
+  function getNextPlayerAvatar() {
+    if (getCurrentImageIndex() === playerAvatars.length - 1)
+      return playerAvatars[0];
+    else return playerAvatars[getCurrentImageIndex() + 1];
+  }
+  function getPrevPlayerAvatar() {
+    if (getCurrentImageIndex() !== 0)
+      return playerAvatars[getCurrentImageIndex() - 1];
+    else return playerAvatars[playerAvatars.length - 1];
+  }
+
+  function getCurrentImageIndex() {
+    return playerAvatars.indexOf(menuRenderer.getPlayerAvatar());
+  }
 
   function getPrevComputerAvatar() {}
   function getNextComputerAvatar() {}
 
   function getNextAvatar() {}
   function getPrevAvatar() {}
+
+  menuRenderer.renderPlayerAvatar("images/avatars/chicken.png");
 })();
 
 function createPlayer(name, avatar, color) {
@@ -67,5 +94,3 @@ function createPlayer(name, avatar, color) {
 
   return { getName, getAvatar, getColor };
 }
-
-menuRenderer.renderPlayerAvatar("/images/avatars/chicken.png");
