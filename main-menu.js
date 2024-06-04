@@ -15,7 +15,7 @@ class Player {
   getColor = () => color;
 }
 
-const menuRenderer = (function () {
+const displayController = (function () {
   const playerAvatarContainer = document.querySelector(
     ".js-player-avatar-container"
   );
@@ -86,14 +86,18 @@ const menuController = (function () {
     ".js-computer-avatar-prev-button"
   );
 
-  menuRenderer.renderPlayerAvatar("images/avatars/chicken.png");
+  displayController.renderPlayerAvatar("images/avatars/chicken.png");
 
-  const player = new Player("Spelare", menuRenderer.getPlayerAvatar(), "red");
+  const player = new Player(
+    "Spelare",
+    displayController.getPlayerAvatar(),
+    "red"
+  );
 
   playerAvatarNextButton.addEventListener("click", () => {
     const nextAvatar = getNextPlayerAvatar();
-    menuRenderer.renderPlayerAvatar(nextAvatar.avatar);
-    menuRenderer.updatePlayerAvatarColors(
+    displayController.renderPlayerAvatar(nextAvatar.avatar);
+    displayController.updatePlayerAvatarColors(
       nextAvatar.backgroundColor,
       nextAvatar.shadowColor
     );
@@ -102,8 +106,8 @@ const menuController = (function () {
 
   playerAvatarPrevButton.addEventListener("click", () => {
     const prevAvatar = getPrevPlayerAvatar();
-    menuRenderer.renderPlayerAvatar(prevAvatar.avatar);
-    menuRenderer.updatePlayerAvatarColors(
+    displayController.renderPlayerAvatar(prevAvatar.avatar);
+    displayController.updatePlayerAvatarColors(
       prevAvatar.backgroundColor,
       prevAvatar.shadowColor
     );
@@ -112,9 +116,9 @@ const menuController = (function () {
 
   computerAvatarNextButton.addEventListener("click", () => {
     const nextAvatar = getNextComputerAvatar();
-    menuRenderer.renderComputerAvatar(nextAvatar.avatar);
-    menuRenderer.updateComputerName(nextAvatar.name);
-    menuRenderer.updateComputerAvatarColors(
+    displayController.renderComputerAvatar(nextAvatar.avatar);
+    displayController.updateComputerName(nextAvatar.name);
+    displayController.updateComputerAvatarColors(
       nextAvatar.backgroundColor,
       nextAvatar.shadowColor
     );
@@ -123,9 +127,9 @@ const menuController = (function () {
 
   computerAvatarPrevButton.addEventListener("click", () => {
     const nextAvatar = getPrevComputerAvatar();
-    menuRenderer.renderComputerAvatar(nextAvatar.avatar);
-    menuRenderer.updateComputerName(nextAvatar.name);
-    menuRenderer.updateComputerAvatarColors(
+    displayController.renderComputerAvatar(nextAvatar.avatar);
+    displayController.updateComputerName(nextAvatar.name);
+    displayController.updateComputerAvatarColors(
       nextAvatar.backgroundColor,
       nextAvatar.shadowColor
     );
@@ -145,7 +149,7 @@ const menuController = (function () {
 
   function getCurrentImageIndex() {
     for (const avatar of playerAvatars) {
-      if (avatar.avatar === menuRenderer.getPlayerAvatar()) {
+      if (avatar.avatar === displayController.getPlayerAvatar()) {
         return playerAvatars.indexOf(avatar);
       }
     }
@@ -153,7 +157,7 @@ const menuController = (function () {
 
   function getCurrentComputerImageIndex() {
     for (const avatar of computerAvatars) {
-      if (avatar.avatar === menuRenderer.getComputerAvatar()) {
+      if (avatar.avatar === displayController.getComputerAvatar()) {
         return computerAvatars.indexOf(avatar);
       }
     }
