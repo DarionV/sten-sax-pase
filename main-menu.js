@@ -94,53 +94,54 @@ const menuController = (function () {
     "red"
   );
 
-  playerAvatarNextButton.addEventListener("click", () => {
-    const nextAvatar = getNextPlayerAvatar();
-    displayController.renderPlayerAvatar(nextAvatar.avatar);
+  playerAvatarNextButton.addEventListener("click", gotoNextPlayerAvatar);
+
+  playerAvatarPrevButton.addEventListener("click", gotoPrevPlayerAvatar);
+
+  computerAvatarPrevButton.addEventListener("click", gotoPrevComputerAvatar);
+
+  computerAvatarNextButton.addEventListener("click", gotoNextComputerAvatar);
+
+  function gotoPrevPlayerAvatar() {
+    updatePlayerAvatar(getPrevPlayerAvatar());
+  }
+
+  function gotoNextPlayerAvatar() {
+    updatePlayerAvatar(getNextPlayerAvatar());
+  }
+
+  function updatePlayerAvatar(avatar) {
+    displayController.renderPlayerAvatar(avatar.avatar);
     displayController.updatePlayerAvatarColors(
-      nextAvatar.backgroundColor,
-      nextAvatar.shadowColor
+      avatar.backgroundColor,
+      avatar.shadowColor
     );
-    player.setAvatar(nextAvatar.avatar);
-  });
+    player.setAvatar(avatar.avatar);
+  }
 
-  playerAvatarPrevButton.addEventListener("click", () => {
-    const prevAvatar = getPrevPlayerAvatar();
-    displayController.renderPlayerAvatar(prevAvatar.avatar);
-    displayController.updatePlayerAvatarColors(
-      prevAvatar.backgroundColor,
-      prevAvatar.shadowColor
-    );
-    player.setAvatar(prevAvatar.avatar);
-  });
+  function gotoPrevComputerAvatar() {
+    updateComputerAvatar(getPrevComputerAvatar());
+  }
 
-  computerAvatarNextButton.addEventListener("click", () => {
-    const nextAvatar = getNextComputerAvatar();
-    displayController.renderComputerAvatar(nextAvatar.avatar);
-    displayController.updateComputerName(nextAvatar.name);
+  function gotoNextComputerAvatar() {
+    updateComputerAvatar(getNextComputerAvatar());
+  }
+
+  function updateComputerAvatar(avatar) {
+    displayController.renderComputerAvatar(avatar.avatar);
     displayController.updateComputerAvatarColors(
-      nextAvatar.backgroundColor,
-      nextAvatar.shadowColor
+      avatar.backgroundColor,
+      avatar.shadowColor
     );
-    // computer.setAvatar(nextAvatar.avatar);
-  });
-
-  computerAvatarPrevButton.addEventListener("click", () => {
-    const nextAvatar = getPrevComputerAvatar();
-    displayController.renderComputerAvatar(nextAvatar.avatar);
-    displayController.updateComputerName(nextAvatar.name);
-    displayController.updateComputerAvatarColors(
-      nextAvatar.backgroundColor,
-      nextAvatar.shadowColor
-    );
-    // computer.setAvatar(nextAvatar.avatar);
-  });
+    // computer.setAvatar(avatar.avatar);
+  }
 
   function getNextPlayerAvatar() {
     if (getCurrentImageIndex() === playerAvatars.length - 1)
       return playerAvatars[0];
     else return playerAvatars[getCurrentImageIndex() + 1];
   }
+
   function getPrevPlayerAvatar() {
     if (getCurrentImageIndex() !== 0)
       return playerAvatars[getCurrentImageIndex() - 1];
@@ -174,9 +175,6 @@ const menuController = (function () {
       return computerAvatars[0];
     else return computerAvatars[getCurrentComputerImageIndex() + 1];
   }
-
-  function getNextAvatar() {}
-  function getPrevAvatar() {}
 })();
 
 // function createPlayer(name, avatar, color) {
