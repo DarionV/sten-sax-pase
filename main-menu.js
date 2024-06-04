@@ -133,6 +133,7 @@ const menuController = (function () {
       avatar.backgroundColor,
       avatar.shadowColor
     );
+    displayController.updateComputerName(avatar.name);
     // computer.setAvatar(avatar.avatar);
   }
 
