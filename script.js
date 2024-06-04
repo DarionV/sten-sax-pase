@@ -157,6 +157,12 @@ const gameController = (function () {
     });
   });
 
+  document.addEventListener("keypress", (e) => {
+    if (e.key == "f") playRound(0);
+    if (e.key == "g") playRound(1);
+    if (e.key == "h") playRound(2);
+  });
+
   const getPlayerScore = () => playerScore;
   const getComputerScore = () => computerScore;
 
@@ -299,12 +305,14 @@ const gameController = (function () {
   }
 
   function disableButtons() {
+    document.querySelector(".choices-container").classList.add("disabled");
     for (const button of buttons) {
       button.classList.add("disabled");
     }
   }
 
   function enableButtons() {
+    document.querySelector(".choices-container").classList.remove("disabled");
     for (const button of buttons) {
       button.classList.remove("disabled");
     }
