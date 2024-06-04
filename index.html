@@ -12,7 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Patua+One&display=swap"
       rel="stylesheet"
     />
-    <script src="script.js"></script>
+    <script src="main-menu.js" defer></script>
   </head>
   <body class="flex vertical">
     <h1 class="bold">
@@ -23,11 +23,21 @@
     <div class="players-selection-container flex regular">
       <div class="player-selection-container flex vertical">
         <div class="flex">
-          <img src="images/arrow.svg" alt="" width="32px" class="prev-btn" />
+          <img
+            src="images/arrow.svg"
+            alt=""
+            width="32px"
+            class="prev-btn js-player-avatar-prev-button"
+          />
           <div class="avatar-container player flex">
             <img src="images/avatars/bee.png" alt="" />
           </div>
-          <img src="images/arrow.svg" alt="" width="32px" class="next-btn" />
+          <img
+            src="images/arrow.svg"
+            alt=""
+            width="32px"
+            class="next-btn js-player-avatar-next-button"
+          />
         </div>
         <input
           type="text"
@@ -43,7 +53,7 @@
           <img
             src="images/arrow.svg"
             alt=""
-            class="prev-btn computer-btn"
+            class="prev-btn computer-btn js-computer-prev-button"
             width="32px"
           />
           <div class="avatar-container computer flex">
@@ -52,13 +62,13 @@
           <img
             src="images/arrow.svg"
             alt=""
-            class="next-btn computer-btn"
+            class="next-btn computer-btn js-computer-next-button"
             width="32px"
           />
         </div>
         <h3 id="computer-name">Dator</h3>
       </div>
     </div>
-    <button class="button bold">Spela</button>
+    <button class="button bold js-play-button">Spela</button>
   </body>
 </html>
