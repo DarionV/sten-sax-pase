@@ -1,8 +1,24 @@
 const menuRenderer = (function () {
-  function renderPlayerAvatar() {}
-  function renderComputerAvatar() {}
+  const playerAvatarContainer = document.querySelector(
+    ".js-player-avatar-container"
+  );
+  const playerAvatar = document.querySelector(".js-player-avatar");
+  const computerAvatarContainer = document.querySelector(
+    ".js-computer-avatar-container"
+  );
 
-  function renderAvatar() {}
+  function renderPlayerAvatar(avatar, color) {
+    console.log("rendering player avatar");
+    renderAvatar(playerAvatarContainer, playerAvatar, avatar, color);
+  }
+  function renderComputerAvatar(avatar, color) {
+    renderAvatar(computerAvatarContainer, avatar, color);
+  }
+
+  function renderAvatar(container, img, avatar, color) {
+    img.src = avatar;
+    container.style.backgroundColor = color;
+  }
 
   return { renderPlayerAvatar, renderComputerAvatar };
 })();
@@ -10,16 +26,16 @@ const menuRenderer = (function () {
 const menuController = (function () {
   const playButton = document.querySelector("js-play-button");
 
-  const playerAvatarPrevButton = document.querySelectorAll(
+  const playerAvatarPrevButton = document.querySelector(
     ".js-player-avatar-prev-button"
   );
-  const playerAvatarNextButton = document.querySelectorAll(
+  const playerAvatarNextButton = document.querySelector(
     ".js-player-avatar-next-button"
   );
-  const computerAvatarNextButton = document.querySelectorAll(
+  const computerAvatarNextButton = document.querySelector(
     ".js-computer-avatar-next-button"
   );
-  const computerAvatarPrevButton = document.querySelectorAll(
+  const computerAvatarPrevButton = document.querySelector(
     ".js-computer-avatar-prev-button"
   );
 
@@ -44,9 +60,12 @@ const menuController = (function () {
   function getPrevAvatar() {}
 })();
 
-function createPlayer(name, avatar) {
+function createPlayer(name, avatar, color) {
   const getName = () => name;
   const getAvatar = () => avatar;
+  const getColor = () => color;
 
-  return { getName, getAvatar };
+  return { getName, getAvatar, getColor };
 }
+
+menuRenderer.renderPlayerAvatar("/images/avatars/chicken.png");
