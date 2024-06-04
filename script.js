@@ -32,13 +32,13 @@ const gameRenderer = (function () {
   const renderComputerMove = (move) => {
     switch (move) {
       case 0:
-        computerMove.src = "/images/choices/computer_rock.gif";
+        computerMove.src = "/images/choices/computer_rock_fast.gif";
         break;
       case 1:
-        computerMove.src = "/images/choices/computer_paper.gif";
+        computerMove.src = "/images/choices/computer_paper_fast.gif";
         break;
       case 2:
-        computerMove.src = "/images/choices/computer_scissors.gif";
+        computerMove.src = "/images/choices/computer_scissors_fast.gif";
         break;
       default:
         console.log("Unable to render computer move");
@@ -227,6 +227,7 @@ const gameController = (function () {
     }
 
     console.log("First move");
+    allowSecondChoice = true;
 
     makeComputerMove();
     hasMadeFirstChoice = true;
@@ -239,7 +240,7 @@ const gameController = (function () {
       gameRenderer.renderTimer();
       gameRenderer.reloadPlayerAnimations();
       makePlayerMove(playerMove);
-      allowSecondChoice = true;
+      // allowSecondChoice = true;
     }, playerMoveDelayInSeconds * 1000);
   }
 
