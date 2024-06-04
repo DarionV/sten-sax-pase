@@ -61,7 +61,7 @@ input:focus::placeholder {
   color: transparent;
 }
 
-. .button {
+.button {
   font-size: 2rem;
   color: #fff;
   background-color: #72b770;

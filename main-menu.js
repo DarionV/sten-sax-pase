@@ -17,17 +17,19 @@ const menuRenderer = (function () {
   const playerAvatarContainer = document.querySelector(
     ".js-player-avatar-container"
   );
-  const playerAvatar = document.querySelector(".js-player-avatar");
   const computerAvatarContainer = document.querySelector(
     ".js-computer-avatar-container"
   );
+
+  const playerAvatar = document.querySelector(".js-player-avatar");
+  const computerAvatar = document.querySelector(".js-computer-avatar");
 
   function renderPlayerAvatar(avatar, color) {
     renderAvatar(playerAvatarContainer, playerAvatar, avatar, color);
   }
 
   function renderComputerAvatar(avatar, color) {
-    renderAvatar(computerAvatarContainer, avatar, color);
+    renderAvatar(computerAvatarContainer, computerAvatar, avatar, color);
   }
 
   function renderAvatar(container, img, avatar, color) {
@@ -39,8 +41,12 @@ const menuRenderer = (function () {
     updateAvatarColors(playerAvatarContainer, backgroundColor, shadowColor);
   }
 
-  function updateComputerAvatarColors() {
+  function updateComputerAvatarColors(backgroundColor, shadowColor) {
     updateAvatarColors(computerAvatarContainer, backgroundColor, shadowColor);
+  }
+
+  function updateComputerName(newName) {
+    document.querySelector(".js-computer-name").textContent = newName;
   }
 
   function updateAvatarColors(container, backgroundColor, shadowColor) {
@@ -49,13 +55,16 @@ const menuRenderer = (function () {
   }
 
   const getPlayerAvatar = () => playerAvatar.getAttribute("src");
+  const getComputerAvatar = () => computerAvatar.getAttribute("src");
 
   return {
     renderPlayerAvatar,
     renderComputerAvatar,
     getPlayerAvatar,
+    getComputerAvatar,
     updatePlayerAvatarColors,
     updateComputerAvatarColors,
+    updateComputerName,
   };
 })();
 
@@ -75,19 +84,26 @@ const menuController = (function () {
     ".js-computer-avatar-prev-button"
   );
 
-  //   const playerAvatars = [
-  //     "images/avatars/bee.png",
-  //     "images/avatars/bird.png",
-  //     "images/avatars/chicken.png",
-  //     "images/avatars/cow.png",
-  //     "images/avatars/fish.png",
-  //     "images/avatars/pig.png",
-  //     "images/avatars/cat.png",
-  //     "images/avatars/dog.png",
-  //     "images/avatars/koala.png",
-  //     "images/avatars/penguin.png",
-  //     "images/avatars/monkey.png",
-  //   ];
+  const computerAvatars = [
+    {
+      name: "EasyBot",
+      avatar: "images/avatars/robot_easy.png",
+      backgroundColor: "#6CC45E",
+      shadowColor: "#699C65",
+    },
+    {
+      name: "MediumBot",
+      avatar: "images/avatars/robot_medium.png",
+      backgroundColor: "#F38345",
+      shadowColor: "#A9592D",
+    },
+    {
+      name: "HardBot",
+      avatar: "images/avatars/robot_hard.png",
+      backgroundColor: "#FB5555",
+      shadowColor: "#882A2A",
+    },
+  ];
 
   const playerAvatars = [
     {
@@ -171,6 +187,28 @@ const menuController = (function () {
     player.setAvatar(prevAvatar.avatar);
   });
 
+  computerAvatarNextButton.addEventListener("click", () => {
+    const nextAvatar = getNextComputerAvatar();
+    menuRenderer.renderComputerAvatar(nextAvatar.avatar);
+    menuRenderer.updateComputerName(nextAvatar.name);
+    menuRenderer.updateComputerAvatarColors(
+      nextAvatar.backgroundColor,
+      nextAvatar.shadowColor
+    );
+    // computer.setAvatar(nextAvatar.avatar);
+  });
+
+  computerAvatarPrevButton.addEventListener("click", () => {
+    const nextAvatar = getPrevComputerAvatar();
+    menuRenderer.renderComputerAvatar(nextAvatar.avatar);
+    menuRenderer.updateComputerName(nextAvatar.name);
+    menuRenderer.updateComputerAvatarColors(
+      nextAvatar.backgroundColor,
+      nextAvatar.shadowColor
+    );
+    // computer.setAvatar(nextAvatar.avatar);
+  });
+
   function getNextPlayerAvatar() {
     if (getCurrentImageIndex() === playerAvatars.length - 1)
       return playerAvatars[0];
@@ -190,8 +228,25 @@ const menuController = (function () {
     }
   }
 
-  function getPrevComputerAvatar() {}
-  function getNextComputerAvatar() {}
+  function getCurrentComputerImageIndex() {
+    for (const avatar of computerAvatars) {
+      if (avatar.avatar === menuRenderer.getComputerAvatar()) {
+        return computerAvatars.indexOf(avatar);
+      }
+    }
+  }
+
+  function getPrevComputerAvatar() {
+    if (getCurrentComputerImageIndex() !== 0)
+      return computerAvatars[getCurrentComputerImageIndex() - 1];
+    else return computerAvatars[computerAvatars.length - 1];
+  }
+
+  function getNextComputerAvatar() {
+    if (getCurrentComputerImageIndex() === computerAvatars.length - 1)
+      return computerAvatars[0];
+    else return computerAvatars[getCurrentComputerImageIndex() + 1];
+  }
 
   function getNextAvatar() {}
   function getPrevAvatar() {}
