@@ -1,4 +1,5 @@
 import { playerAvatars, computerAvatars } from "./avatar-db.js";
+import { bounceElement } from "./bounce.js";
 
 class Player {
   constructor(name, avatar, color) {
@@ -37,6 +38,7 @@ const displayController = (function () {
   function renderAvatar(container, img, avatar, color) {
     img.src = avatar;
     container.style.backgroundColor = color;
+    bounceElement(container);
   }
 
   function updatePlayerAvatarColors(backgroundColor, shadowColor) {

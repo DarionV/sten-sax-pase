@@ -1,3 +1,5 @@
+import { bounceElement } from "./bounce.js";
+
 const gameRenderer = (function () {
   const computerMove = document.querySelector("#computer-move");
   const playerMoveRock = document.querySelector("#player-move-rock");
@@ -14,18 +16,12 @@ const gameRenderer = (function () {
   console.log(timer.style.animationDuration);
 
   const renderPlayerScore = (value) => {
-    playerScore.style.animation = "none";
-    // Trigga reflow, så att animationen körs på nytt
-    playerScore.offsetHeight;
-    playerScore.style.animation = "bounceIn 1s";
+    bounceElement(playerScore);
     playerScore.textContent = value;
   };
 
   const renderComputerScore = (value) => {
-    computerScore.style.animation = "none";
-    // Trigga reflow, så att animationen körs på nytt
-    computerScore.offsetHeight;
-    computerScore.style.animation = "bounceIn 1s";
+    bounceElement(computerScore);
     computerScore.textContent = value;
   };
 
