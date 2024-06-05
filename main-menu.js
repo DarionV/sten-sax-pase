@@ -50,6 +50,10 @@ const displayController = (function () {
     updateAvatarColors(playerAvatarContainer, backgroundColor, shadowColor);
   }
 
+  function updatePlayerName(name) {
+    document.querySelector(".js-player-name-input").value = name;
+  }
+
   function updateComputerAvatarColors(backgroundColor, shadowColor) {
     updateAvatarColors(computerAvatarContainer, backgroundColor, shadowColor);
   }
@@ -74,6 +78,7 @@ const displayController = (function () {
     updatePlayerAvatarColors,
     updateComputerAvatarColors,
     updateComputerName,
+    updatePlayerName,
   };
 })();
 
@@ -93,19 +98,45 @@ const menuController = (function () {
     ".js-computer-avatar-prev-button"
   );
 
-  displayController.renderPlayerAvatar("images/avatars/chicken.png");
-
-  const player = new Player(
-    "Spelare",
-    displayController.getPlayerAvatar(),
-    "red"
-  );
-
-  const computer = new Player(
+  let player = {};
+  let computer = new Player(
     "EasyBot",
-    displayController.getComputerAvatar(),
-    "red"
+    "images/robot_easy.png",
+    "#6CC45E",
+    "#699C65"
   );
+
+  loadPlayer();
+  updatePlayerAvatar(player);
+  displayController.updatePlayerName(player.name);
+  //   console.log("player" + player.getAvatar());
+
+  function loadPlayer() {
+    if (localStorage.getItem("Player") !== null) loadPlayerFromStorage();
+    else createStartingPlayer();
+  }
+
+  function createStartingPlayer() {
+    player = new Player(
+      "Spelare",
+      "images/avatars/chicken.png",
+      "#D6C56B",
+      "#8D8052"
+    );
+  }
+
+  function loadPlayerFromStorage() {
+    console.log("loading player");
+    let savedPlayer = localStorage.getItem("Player");
+    savedPlayer = JSON.parse(savedPlayer);
+
+    player = new Player(
+      savedPlayer.name,
+      savedPlayer.avatar,
+      savedPlayer.backgroundColor,
+      savedPlayer.shadowColor
+    );
+  }
 
   playerAvatarNextButton.addEventListener("click", gotoNextPlayerAvatar);
 
@@ -115,7 +146,7 @@ const menuController = (function () {
 
   computerAvatarNextButton.addEventListener("click", gotoNextComputerAvatar);
 
-  playButton.addEventListener("click", storePlayers);
+  playButton.addEventListener("click", storePlayer);
 
   function gotoPrevPlayerAvatar() {
     updatePlayerAvatar(getPrevPlayerAvatar());
@@ -132,6 +163,8 @@ const menuController = (function () {
       avatar.shadowColor
     );
     player.setAvatar(avatar.avatar);
+    player.setBackgroundColor(avatar.backgroundColor);
+    player.setShadowColor(avatar.shadowColor);
   }
 
   function gotoPrevComputerAvatar() {
@@ -195,12 +228,10 @@ const menuController = (function () {
     else return computerAvatars[getCurrentComputerImageIndex() + 1];
   }
 
-  function storePlayers() {
+  function storePlayer() {
     const newPlayerName = document.querySelector(".js-player-name-input").value;
     player.setName(newPlayerName);
-
     localStorage.setItem("Player", JSON.stringify(player));
-    localStorage.setItem("Computer", JSON.stringify(computer));
   }
 })();
 
