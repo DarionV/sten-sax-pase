@@ -2,10 +2,11 @@ import { playerAvatars, computerAvatars } from "./avatar-db.js";
 import { bounceElement } from "./bounce.js";
 
 class Player {
-  constructor(name, avatar, color) {
+  constructor(name, avatar, backgroundColor, shadowColor) {
     this.name = name;
     this.avatar = avatar;
-    this.color = color;
+    this.backgroundColor = backgroundColor;
+    this.shadowColor = shadowColor;
   }
   getName = () => name;
   setName = (name) => (this.name = name);
@@ -13,7 +14,11 @@ class Player {
   getAvatar = () => avatar;
   setAvatar = (avatar) => (this.avatar = avatar);
 
-  getColor = () => color;
+  getBackgroundColor = () => color;
+  setBackgroundColor = (newColor) => (this.backgroundColor = newColor);
+
+  getShadowColor = () => color;
+  setShadowColor = (newColor) => (this.shadowColor = newColor);
 }
 
 const displayController = (function () {
@@ -73,7 +78,7 @@ const displayController = (function () {
 })();
 
 const menuController = (function () {
-  const playButton = document.querySelector("js-play-button");
+  const playButton = document.querySelector(".js-play-button");
 
   const playerAvatarPrevButton = document.querySelector(
     ".js-player-avatar-prev-button"
@@ -96,6 +101,12 @@ const menuController = (function () {
     "red"
   );
 
+  const computer = new Player(
+    "EasyBot",
+    displayController.getComputerAvatar(),
+    "red"
+  );
+
   playerAvatarNextButton.addEventListener("click", gotoNextPlayerAvatar);
 
   playerAvatarPrevButton.addEventListener("click", gotoPrevPlayerAvatar);
@@ -103,6 +114,8 @@ const menuController = (function () {
   computerAvatarPrevButton.addEventListener("click", gotoPrevComputerAvatar);
 
   computerAvatarNextButton.addEventListener("click", gotoNextComputerAvatar);
+
+  playButton.addEventListener("click", storePlayers);
 
   function gotoPrevPlayerAvatar() {
     updatePlayerAvatar(getPrevPlayerAvatar());
@@ -136,7 +149,10 @@ const menuController = (function () {
       avatar.shadowColor
     );
     displayController.updateComputerName(avatar.name);
-    // computer.setAvatar(avatar.avatar);
+    computer.setAvatar(avatar.avatar);
+    computer.setName(avatar.name);
+    computer.setBackgroundColor(avatar.backgroundColor);
+    computer.setShadowColor(avatar.shadowColor);
   }
 
   function getNextPlayerAvatar() {
@@ -178,18 +194,14 @@ const menuController = (function () {
       return computerAvatars[0];
     else return computerAvatars[getCurrentComputerImageIndex() + 1];
   }
+
+  function storePlayers() {
+    const newPlayerName = document.querySelector(".js-player-name-input").value;
+    player.setName(newPlayerName);
+
+    localStorage.setItem("Player", JSON.stringify(player));
+    localStorage.setItem("Computer", JSON.stringify(computer));
+  }
 })();
-
-// function createPlayer(name, avatar, color) {
-//   const getName = () => name;
-//   const setName = (name) => (this.name = name);
-
-//   const getAvatar = () => avatar;
-//   const setAvatar = (avatar) => (this.avatar = avatar);
-
-//   const getColor = () => color;
-
-//   return { getName, setName, getAvatar, setAvatar, getColor };
-// }
 
 const menuLoop = (function () {})();
