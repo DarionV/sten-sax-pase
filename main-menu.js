@@ -64,33 +64,39 @@ const displayController = (function () {
 })();
 
 (function () {
-  const playButton = document.querySelector(".js-play-button");
-  playButton.addEventListener("click", storePlayer);
-
-  const arrowButtons = document.querySelectorAll(".js-arrow-button");
-  arrowButtons.forEach((button) => {
-    switch (button.id) {
-      case "player-previous":
-        button.addEventListener("click", gotoPrevPlayerAvatar);
-        break;
-      case "player-next":
-        button.addEventListener("click", gotoNextPlayerAvatar);
-        break;
-      case "computer-next":
-        button.addEventListener("click", gotoNextComputerAvatar);
-        break;
-      case "computer-previous":
-        button.addEventListener("click", gotoPrevComputerAvatar);
-        break;
-    }
-  });
-
   let player = {};
   let computer = {};
 
   loadPlayer();
   initializePlayer();
   intializeComputer();
+
+  const playButton = document.querySelector(".js-play-button");
+  playButton.addEventListener("click", storePlayer);
+
+  const arrowButtons = document.querySelectorAll(".js-arrow-button");
+  arrowButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      handleArrowButtonClick(button.id);
+    });
+  });
+
+  function handleArrowButtonClick(buttonId) {
+    switch (buttonId) {
+      case "player-previous":
+        gotoPrevPlayerAvatar();
+        break;
+      case "player-next":
+        gotoNextPlayerAvatar();
+        break;
+      case "computer-next":
+        gotoNextComputerAvatar();
+        break;
+      default:
+        gotoPrevComputerAvatar();
+        break;
+    }
+  }
 
   function loadPlayer() {
     if (localStorage.getItem("Player") !== null) loadPlayerFromStorage();
