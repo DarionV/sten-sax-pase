@@ -63,38 +63,52 @@ const displayController = (function () {
   };
 })();
 
-const menuController = (function () {
+(function () {
   const playButton = document.querySelector(".js-play-button");
+  playButton.addEventListener("click", storePlayer);
 
-  const playerAvatarPrevButton = document.querySelector(
-    ".js-player-avatar-prev-button"
-  );
-  const playerAvatarNextButton = document.querySelector(
-    ".js-player-avatar-next-button"
-  );
-  const computerAvatarNextButton = document.querySelector(
-    ".js-computer-avatar-next-button"
-  );
-  const computerAvatarPrevButton = document.querySelector(
-    ".js-computer-avatar-prev-button"
-  );
+  const arrowButtons = document.querySelectorAll(".js-arrow-button");
+  arrowButtons.forEach((button) => {
+    switch (button.id) {
+      case "player-previous":
+        button.addEventListener("click", gotoPrevPlayerAvatar);
+        break;
+      case "player-next":
+        button.addEventListener("click", gotoNextPlayerAvatar);
+        break;
+      case "computer-next":
+        button.addEventListener("click", gotoNextComputerAvatar);
+        break;
+      case "computer-previous":
+        button.addEventListener("click", gotoPrevComputerAvatar);
+        break;
+    }
+  });
 
   let player = {};
-  let computer = new Player(
-    "EasyBot",
-    "images/robot_easy.png",
-    "#6CC45E",
-    "#699C65"
-  );
+  let computer = {};
 
   loadPlayer();
-  updatePlayerAvatar(player);
-  displayController.updatePlayerName(player.name);
-  //   console.log("player" + player.getAvatar());
+  initializePlayer();
+  intializeComputer();
 
   function loadPlayer() {
     if (localStorage.getItem("Player") !== null) loadPlayerFromStorage();
     else createStartingPlayer();
+  }
+
+  function initializePlayer() {
+    updatePlayerAvatar(player);
+    displayController.updatePlayerName(player.name);
+  }
+
+  function intializeComputer() {
+    computer = new Player(
+      "EasyBot",
+      "images/robot_easy.png",
+      "#6CC45E",
+      "#699C65"
+    );
   }
 
   function createStartingPlayer() {
@@ -107,7 +121,6 @@ const menuController = (function () {
   }
 
   function loadPlayerFromStorage() {
-    console.log("loading player");
     let savedPlayer = localStorage.getItem("Player");
     savedPlayer = JSON.parse(savedPlayer);
 
@@ -118,16 +131,6 @@ const menuController = (function () {
       savedPlayer.shadowColor
     );
   }
-
-  playerAvatarNextButton.addEventListener("click", gotoNextPlayerAvatar);
-
-  playerAvatarPrevButton.addEventListener("click", gotoPrevPlayerAvatar);
-
-  computerAvatarPrevButton.addEventListener("click", gotoPrevComputerAvatar);
-
-  computerAvatarNextButton.addEventListener("click", gotoNextComputerAvatar);
-
-  playButton.addEventListener("click", storePlayer);
 
   function gotoPrevPlayerAvatar() {
     updatePlayerAvatar(getPrevPlayerAvatar());
@@ -215,5 +218,3 @@ const menuController = (function () {
     localStorage.setItem("Player", JSON.stringify(player));
   }
 })();
-
-const menuLoop = (function () {})();
