@@ -30,7 +30,9 @@ export const avatarDisplayController = (function () {
   }
 
   function updatePlayerName(name) {
-    document.querySelector(".js-player-name-input").value = name;
+    const nameInput = document.querySelector(".js-player-name-input");
+    if (nameInput !== null) nameInput.value = name;
+    else document.querySelector(".js-player-name").textContent = name;
   }
 
   function updateComputerAvatarColors(backgroundColor, shadowColor) {

@@ -29,16 +29,22 @@
         <h1 class="bold flex">Sten, sax, påse</h1>
       </div>
       <div class="stats-container player flex vertical bold">
-        <div class="avatar-container player flex">
-          <img src="images/avatars/bird.png" alt="" />
+        <div class="avatar-container player flex js-player-avatar-container">
+          <img src="images/avatars/bird.png" alt="" class="js-player-avatar" />
         </div>
-        <h2>Spelare</h2>
+        <h2 class="js-player-name">Spelare</h2>
         <h3 id="player-score" class="score-container">0</h3>
       </div>
 
       <div class="stats-container computer flex vertical bold">
-        <div class="avatar-container computer flex">
-          <img src="images/avatars/robot_easy.png" alt="" />
+        <div
+          class="avatar-container computer flex js-computer-avatar-container"
+        >
+          <img
+            src="images/avatars/robot_easy.png"
+            alt=""
+            class="js-computer-avatar"
+          />
         </div>
         <h2>Dator</h2>
         <h3 id="computer-score">0</h3>

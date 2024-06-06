@@ -129,6 +129,13 @@ const gameRenderer = (function () {
 const gameController = (function () {
   let player = loadPlayerFromStorage();
 
+  avatarDisplayController.renderPlayerAvatar(player.avatar);
+  avatarDisplayController.updatePlayerAvatarColors(
+    player.backgroundColor,
+    player.shadowColor
+  );
+  avatarDisplayController.updatePlayerName(player.name);
+
   let playerMoveDelayInSeconds = 0.7;
   let playerAnimationDurationInSeconds = playerMoveDelayInSeconds + 2;
 
