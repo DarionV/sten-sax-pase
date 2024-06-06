@@ -1,6 +1,7 @@
 import { playerAvatars, computerAvatars } from "./avatar-db.js";
 import { bounceElement } from "./bounce.js";
 import { Player } from "./Player.js";
+import { loadPlayerFromStorage } from "./loadPlayer.js";
 
 const displayController = (function () {
   const playerAvatarContainer = document.querySelector(
@@ -99,7 +100,8 @@ const displayController = (function () {
   }
 
   function loadPlayer() {
-    if (localStorage.getItem("Player") !== null) loadPlayerFromStorage();
+    if (localStorage.getItem("Player") !== null)
+      player = loadPlayerFromStorage();
     else createStartingPlayer();
   }
 
@@ -123,18 +125,6 @@ const displayController = (function () {
       "images/avatars/chicken.png",
       "#D6C56B",
       "#8D8052"
-    );
-  }
-
-  function loadPlayerFromStorage() {
-    let savedPlayer = localStorage.getItem("Player");
-    savedPlayer = JSON.parse(savedPlayer);
-
-    player = new Player(
-      savedPlayer.name,
-      savedPlayer.avatar,
-      savedPlayer.backgroundColor,
-      savedPlayer.shadowColor
     );
   }
 
