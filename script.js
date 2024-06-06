@@ -1,6 +1,9 @@
 import { bounceElement } from "./bounce.js";
 import { Player } from "./Player.js";
-import { loadPlayerFromStorage } from "./loadPlayer.js";
+import {
+  loadComputerFromStorage,
+  loadPlayerFromStorage,
+} from "./loadPlayer.js";
 import { avatarDisplayController } from "./avatarDisplayController.js";
 
 const gameRenderer = (function () {
@@ -128,6 +131,7 @@ const gameRenderer = (function () {
 
 const gameController = (function () {
   let player = loadPlayerFromStorage();
+  let computer = loadComputerFromStorage();
 
   avatarDisplayController.renderPlayerAvatar(player.avatar);
   avatarDisplayController.updatePlayerAvatarColors(
@@ -135,6 +139,13 @@ const gameController = (function () {
     player.shadowColor
   );
   avatarDisplayController.updatePlayerName(player.name);
+
+  avatarDisplayController.renderComputerAvatar(computer.avatar);
+  avatarDisplayController.updateComputerAvatarColors(
+    computer.backgroundColor,
+    computer.shadowColor
+  );
+  avatarDisplayController.updateComputerName(computer.name);
 
   let playerMoveDelayInSeconds = 0.7;
   let playerAnimationDurationInSeconds = playerMoveDelayInSeconds + 2;
@@ -156,6 +167,9 @@ const gameController = (function () {
   let RESULT_DELAY_IN_SECONDS = 0.5;
   let ROUND_END_DELAY_IN_SECONDS = 1.5;
   let SCORE_LIMIT = 5;
+
+  const exitButton = document.querySelector(".js-exit-button");
+  exitButton.addEventListener("click", gotoMainMenu);
 
   const buttons = document.querySelectorAll(".choice-button");
 
@@ -325,6 +339,10 @@ const gameController = (function () {
     for (const button of buttons) {
       button.classList.remove("disabled");
     }
+  }
+
+  function gotoMainMenu() {
+    location.href = "/index.html";
   }
 
   return {

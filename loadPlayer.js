@@ -11,3 +11,15 @@ export function loadPlayerFromStorage() {
     savedPlayer.shadowColor
   );
 }
+
+export function loadComputerFromStorage() {
+  let savedComputer = localStorage.getItem("Computer");
+  savedComputer = JSON.parse(savedComputer);
+
+  return new Player(
+    savedComputer.name,
+    savedComputer.avatar,
+    savedComputer.backgroundColor,
+    savedComputer.shadowColor
+  );
+}

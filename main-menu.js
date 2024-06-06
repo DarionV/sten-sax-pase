@@ -56,7 +56,7 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
   function intializeComputer() {
     computer = new Player(
       "EasyBot",
-      "images/robot_easy.png",
+      "images/avatars/robot_easy.png",
       "#6CC45E",
       "#699C65"
     );
@@ -155,5 +155,6 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
     const newPlayerName = document.querySelector(".js-player-name-input").value;
     player.setName(newPlayerName);
     localStorage.setItem("Player", JSON.stringify(player));
+    localStorage.setItem("Computer", JSON.stringify(computer));
   }
 })();
