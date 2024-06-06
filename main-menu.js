@@ -1,68 +1,8 @@
 import { playerAvatars, computerAvatars } from "./avatar-db.js";
-import { bounceElement } from "./bounce.js";
+
 import { Player } from "./Player.js";
 import { loadPlayerFromStorage } from "./loadPlayer.js";
-
-const displayController = (function () {
-  const playerAvatarContainer = document.querySelector(
-    ".js-player-avatar-container"
-  );
-  const computerAvatarContainer = document.querySelector(
-    ".js-computer-avatar-container"
-  );
-
-  const playerAvatar = document.querySelector(".js-player-avatar");
-  const computerAvatar = document.querySelector(".js-computer-avatar");
-
-  function renderPlayerAvatar(avatar, color) {
-    renderAvatar(playerAvatarContainer, playerAvatar, avatar, color);
-  }
-
-  function renderComputerAvatar(avatar, color) {
-    renderAvatar(computerAvatarContainer, computerAvatar, avatar, color);
-  }
-
-  function renderAvatar(container, img, avatar, color) {
-    img.src = avatar;
-    container.style.backgroundColor = color;
-    bounceElement(container);
-  }
-
-  function updatePlayerAvatarColors(backgroundColor, shadowColor) {
-    updateAvatarColors(playerAvatarContainer, backgroundColor, shadowColor);
-  }
-
-  function updatePlayerName(name) {
-    document.querySelector(".js-player-name-input").value = name;
-  }
-
-  function updateComputerAvatarColors(backgroundColor, shadowColor) {
-    updateAvatarColors(computerAvatarContainer, backgroundColor, shadowColor);
-  }
-
-  function updateComputerName(newName) {
-    document.querySelector(".js-computer-name").textContent = newName;
-  }
-
-  function updateAvatarColors(container, backgroundColor, shadowColor) {
-    container.style.backgroundColor = backgroundColor;
-    container.style.boxShadow = "0px 10px 0px" + shadowColor;
-  }
-
-  const getPlayerAvatar = () => playerAvatar.getAttribute("src");
-  const getComputerAvatar = () => computerAvatar.getAttribute("src");
-
-  return {
-    renderPlayerAvatar,
-    renderComputerAvatar,
-    getPlayerAvatar,
-    getComputerAvatar,
-    updatePlayerAvatarColors,
-    updateComputerAvatarColors,
-    updateComputerName,
-    updatePlayerName,
-  };
-})();
+import { avatarDisplayController } from "./avatarDisplayController.js";
 
 (function () {
   let player = {};
@@ -107,7 +47,7 @@ const displayController = (function () {
 
   function initializePlayer() {
     updatePlayerAvatar(player);
-    displayController.updatePlayerName(player.name);
+    avatarDisplayController.updatePlayerName(player.name);
   }
 
   function intializeComputer() {
@@ -137,8 +77,8 @@ const displayController = (function () {
   }
 
   function updatePlayerAvatar(avatar) {
-    displayController.renderPlayerAvatar(avatar.avatar);
-    displayController.updatePlayerAvatarColors(
+    avatarDisplayController.renderPlayerAvatar(avatar.avatar);
+    avatarDisplayController.updatePlayerAvatarColors(
       avatar.backgroundColor,
       avatar.shadowColor
     );
@@ -156,12 +96,12 @@ const displayController = (function () {
   }
 
   function updateComputerAvatar(avatar) {
-    displayController.renderComputerAvatar(avatar.avatar);
-    displayController.updateComputerAvatarColors(
+    avatarDisplayController.renderComputerAvatar(avatar.avatar);
+    avatarDisplayController.updateComputerAvatarColors(
       avatar.backgroundColor,
       avatar.shadowColor
     );
-    displayController.updateComputerName(avatar.name);
+    avatarDisplayController.updateComputerName(avatar.name);
     computer.setAvatar(avatar.avatar);
     computer.setName(avatar.name);
     computer.setBackgroundColor(avatar.backgroundColor);
@@ -182,7 +122,7 @@ const displayController = (function () {
 
   function getCurrentImageIndex() {
     for (const avatar of playerAvatars) {
-      if (avatar.avatar === displayController.getPlayerAvatar()) {
+      if (avatar.avatar === avatarDisplayController.getPlayerAvatar()) {
         return playerAvatars.indexOf(avatar);
       }
     }
@@ -190,7 +130,7 @@ const displayController = (function () {
 
   function getCurrentComputerImageIndex() {
     for (const avatar of computerAvatars) {
-      if (avatar.avatar === displayController.getComputerAvatar()) {
+      if (avatar.avatar === avatarDisplayController.getComputerAvatar()) {
         return computerAvatars.indexOf(avatar);
       }
     }

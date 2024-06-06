@@ -1,4 +1,7 @@
 import { bounceElement } from "./bounce.js";
+import { Player } from "./Player.js";
+import { loadPlayerFromStorage } from "./loadPlayer.js";
+import { avatarDisplayController } from "./avatarDisplayController.js";
 
 const gameRenderer = (function () {
   const computerMove = document.querySelector("#computer-move");
@@ -124,6 +127,8 @@ const gameRenderer = (function () {
 })();
 
 const gameController = (function () {
+  let player = loadPlayerFromStorage();
+
   let playerMoveDelayInSeconds = 0.7;
   let playerAnimationDurationInSeconds = playerMoveDelayInSeconds + 2;
 
