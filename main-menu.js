@@ -5,15 +5,14 @@ import { loadPlayerFromStorage } from "./loadPlayer.js";
 import { avatarDisplayController } from "./avatarDisplayController.js";
 
 (function () {
-  let player = {};
+  let player = loadPlayer();
   let computer = {};
 
-  loadPlayer();
   initializePlayer();
   intializeComputer();
 
   const playButton = document.querySelector(".js-play-button");
-  playButton.addEventListener("click", storePlayer);
+  playButton.addEventListener("click", startGame);
 
   const arrowButtons = document.querySelectorAll(".js-arrow-button");
   arrowButtons.forEach((button) => {
@@ -39,10 +38,14 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
     }
   }
 
+  function startGame() {
+    storePlayer();
+    location.href = "/game.html";
+  }
+
   function loadPlayer() {
-    if (localStorage.getItem("Player") !== null)
-      player = loadPlayerFromStorage();
-    else createStartingPlayer();
+    if (localStorage.getItem("Player") !== null) return loadPlayerFromStorage();
+    else return createStartingPlayer();
   }
 
   function initializePlayer() {
@@ -60,7 +63,7 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
   }
 
   function createStartingPlayer() {
-    player = new Player(
+    return new Player(
       "Spelare",
       "images/avatars/chicken.png",
       "#D6C56B",
