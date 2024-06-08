@@ -86,7 +86,8 @@ input:focus::placeholder {
 
 .tutorial-container {
   max-width: 500px;
-  padding: 40px;
+  width: 90vw;
+  padding: 1rem;
   border-radius: 18px;
   border: 2px solid rgb(67, 67, 67);
   box-shadow: 5px 20px 0px rgb(67, 67, 67), -5px 20px 0px rgb(67, 67, 67);
@@ -119,6 +120,7 @@ mark {
 
 .tutorial-container h2 {
   font-size: 1.2rem;
+  margin-top: 10px;
 }
 
 .tutorial-container p {
