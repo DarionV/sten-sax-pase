@@ -8,6 +8,7 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
 import { difficulties } from "./difficulty-db.js";
 
 const gameRenderer = (function () {
+  const timeUpScreen = document.querySelector(".js-time-up-screen");
   const computerMove = document.querySelector("#computer-move");
   const playerMoveRock = document.querySelector("#player-move-rock");
   const playerMovePaper = document.querySelector("#player-move-paper");
@@ -123,6 +124,15 @@ const gameRenderer = (function () {
     }
   };
 
+  function renderTimeUp() {
+    console.log("time up");
+
+    setTimeout(() => {
+      timeUpScreen.classList.remove("time-up");
+    }, 1000);
+    timeUpScreen.classList.add("time-up");
+  }
+
   return {
     renderComputerScore,
     renderPlayerScore,
@@ -137,6 +147,7 @@ const gameRenderer = (function () {
     renderPlayerStartAnimation,
     setComputerAnimations,
     setPlayerAnimations,
+    renderTimeUp,
   };
 })();
 
@@ -252,12 +263,12 @@ const gameController = (function () {
 
     setTimeout(() => {
       gameRenderer.renderPlayerMove(playerSelection);
-      console.log("nu");
     }, selectionWindow * 1000);
 
     setTimeout(() => {
       disableButtons();
       gameRenderer.hideTimer();
+      if (isPlaying) autoLose();
     }, selectionWindow * 1000);
 
     setTimeout(() => {
@@ -292,6 +303,23 @@ const gameController = (function () {
   function isGameOver() {
     if (playerScore === SCORE_LIMIT || computerScore === SCORE_LIMIT) return 1;
     else return 0;
+  }
+
+  function autoLose() {
+    gameRenderer.renderTimeUp();
+    switch (computerSelection) {
+      case 0:
+        makePlayerMove(2);
+        gameRenderer.renderPlayerMove(2);
+        break;
+      case 1:
+        makePlayerMove(0);
+        gameRenderer.renderPlayerMove(0);
+        break;
+      case 2:
+        makePlayerMove(1);
+        gameRenderer.renderPlayerMove(1);
+    }
   }
 
   function initializeDifficulty() {
