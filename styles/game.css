@@ -157,8 +157,11 @@ button.disabled:hover {
 }
 
 .start-game-button {
+  position: absolute;
   margin-bottom: 30px;
   font-size: 1.5rem;
+  bottom: 120px;
+  z-index: 200;
 }
 
 /* TIMER */

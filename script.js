@@ -422,10 +422,14 @@ const gameController = (function () {
 })();
 
 const gameLoop = (function () {
+  gameRenderer.hideStartRoundButton();
   gameController.initializeDifficulty();
   gameController.disableButtons();
   gameRenderer.hideTimer();
   gameRenderer.renderCountDown();
+  setTimeout(() => {
+    gameRenderer.showStartRoundButton();
+  }, 1500);
   // gameController.resetScores();
   gameRenderer.renderPlayerStartAnimation();
 })();
