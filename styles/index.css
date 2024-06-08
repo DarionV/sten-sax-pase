@@ -92,6 +92,26 @@ input:focus::placeholder {
   box-shadow: 5px 20px 0px rgb(67, 67, 67), -5px 20px 0px rgb(67, 67, 67);
 }
 
+.tutorial-button {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  margin-left: auto;
+  padding: 10px;
+  opacity: 50%;
+  cursor: pointer;
+  border: none;
+  background-color: unset;
+}
+
+.tutorial-button img {
+  width: 32px;
+}
+
+button:hover {
+  scale: 110%;
+}
+
 mark {
   background-color: unset;
   color: rgb(219, 64, 64);

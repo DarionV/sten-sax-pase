@@ -11,11 +11,21 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
   initializePlayer();
   intializeComputer();
 
+  const tutorialButton = document.querySelector(".js-tutorial-button");
+  tutorialButton.addEventListener("click", showTutorial);
+
   const startGameButton = document.querySelector(".js-start-game-button");
   startGameButton.addEventListener("click", startGame);
 
   const playButton = document.querySelector(".js-play-button");
-  playButton.addEventListener("click", showTutorial);
+  playButton.addEventListener("click", () => {
+    if (localStorage.getItem("hasViewedTutorial")) {
+      startGame();
+    } else {
+      showTutorial();
+      localStorage.setItem("hasViewedTutorial", "true");
+    }
+  });
 
   const arrowButtons = document.querySelectorAll(".js-arrow-button");
   arrowButtons.forEach((button) => {
