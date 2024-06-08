@@ -164,21 +164,22 @@ const gameRenderer = (function () {
 
 const gameController = (function () {
   let player = loadPlayerFromStorage();
+  if (player.getName() === "") player.setName("Spelare");
   let computer = loadComputerFromStorage();
 
-  avatarDisplayController.renderPlayerAvatar(player.avatar);
+  avatarDisplayController.renderPlayerAvatar(player.getAvatar());
   avatarDisplayController.updatePlayerAvatarColors(
     player.backgroundColor,
     player.shadowColor
   );
-  avatarDisplayController.updatePlayerName(player.name);
+  avatarDisplayController.updatePlayerName(player.getName());
 
-  avatarDisplayController.renderComputerAvatar(computer.avatar);
+  avatarDisplayController.renderComputerAvatar(computer.getAvatar());
   avatarDisplayController.updateComputerAvatarColors(
     computer.backgroundColor,
     computer.shadowColor
   );
-  avatarDisplayController.updateComputerName(computer.name);
+  avatarDisplayController.updateComputerName(computer.getName());
 
   let playerMoveDelayInSeconds = 0;
   let playerAnimationDurationInSeconds = 0;

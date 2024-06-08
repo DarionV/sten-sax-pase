@@ -8,7 +8,7 @@ export class Player {
   getName = () => this.name;
   setName = (name) => (this.name = name);
 
-  getAvatar = () => avatar;
+  getAvatar = () => this.avatar;
   setAvatar = (avatar) => (this.avatar = avatar);
 
   getBackgroundColor = () => this.backgroundColor;
