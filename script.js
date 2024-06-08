@@ -19,6 +19,8 @@ const gameRenderer = (function () {
 
   const textOverlay = document.querySelector(".text-overlay");
 
+  const startRoundButton = document.querySelector(".js-start-round-button");
+
   let computerAnimations = [
     "images/choices/computer_rock_fast.gif",
     "images/choices/computer_paper_fast.gif",
@@ -40,6 +42,14 @@ const gameRenderer = (function () {
     bounceElement(computerScore);
     computerScore.textContent = value;
   };
+
+  function hideStartRoundButton() {
+    startRoundButton.style.display = "none";
+  }
+
+  function showStartRoundButton() {
+    startRoundButton.style.display = "inline";
+  }
 
   const renderComputerMove = (move) => {
     switch (move) {
@@ -148,6 +158,8 @@ const gameRenderer = (function () {
     setComputerAnimations,
     setPlayerAnimations,
     renderTimeUp,
+    hideStartRoundButton,
+    showStartRoundButton,
   };
 })();
 
@@ -250,6 +262,7 @@ const gameController = (function () {
   }
 
   function startRound() {
+    gameRenderer.hideStartRoundButton();
     enableButtons();
     if (isGameOver()) resetScores();
     makeComputerMove();
@@ -274,6 +287,10 @@ const gameController = (function () {
     setTimeout(() => {
       evaluateResult();
     }, playerAnimationDurationInSeconds * 1000);
+
+    setTimeout(() => {
+      gameRenderer.showStartRoundButton();
+    }, playerAnimationDurationInSeconds * 1000 + 1000);
   }
 
   function evaluateResult() {

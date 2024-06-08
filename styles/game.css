@@ -156,6 +156,11 @@ button.disabled:hover {
   display: none;
 }
 
+.start-game-button {
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+}
+
 /* TIMER */
 .timer {
   /* opacity: 50%; */
