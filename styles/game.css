@@ -157,6 +157,7 @@ button.disabled:hover {
 }
 
 .start-game-button {
+  display: none;
   position: absolute;
   margin-bottom: 30px;
   font-size: 1.5rem;
@@ -167,6 +168,7 @@ button.disabled:hover {
 /* TIMER */
 .timer {
   /* opacity: 50%; */
+  display: none;
   width: 50px;
   height: 50px;
   /* border: 2px solid DeepPink; */

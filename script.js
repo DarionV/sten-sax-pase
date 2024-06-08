@@ -1,5 +1,4 @@
 import { bounceElement } from "./bounce.js";
-// import { Player } from "./Player.js";
 import {
   loadComputerFromStorage,
   loadPlayerFromStorage,
@@ -297,19 +296,16 @@ const gameController = (function () {
     setTimeout(() => {
       switch (playerSelection) {
         case 0:
-          // if (computerSelection === 0) tie();
           if (computerSelection === 1) lose();
           if (computerSelection === 2) win();
           break;
         case 1:
           if (computerSelection === 0) win();
-          // if (computerSelection === 1) tie();
           if (computerSelection === 2) lose();
           break;
         case 2:
           if (computerSelection === 0) lose();
           if (computerSelection === 1) win();
-          // if (computerSelection === 2) tie();
           break;
         default:
           break;
@@ -421,15 +417,12 @@ const gameController = (function () {
   };
 })();
 
-const gameLoop = (function () {
-  gameRenderer.hideStartRoundButton();
+(function () {
   gameController.initializeDifficulty();
   gameController.disableButtons();
-  gameRenderer.hideTimer();
   gameRenderer.renderCountDown();
   setTimeout(() => {
     gameRenderer.showStartRoundButton();
   }, 1500);
-  // gameController.resetScores();
   gameRenderer.renderPlayerStartAnimation();
 })();
