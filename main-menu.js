@@ -1,5 +1,4 @@
 import { playerAvatars, computerAvatars } from "./avatar-db.js";
-
 import { Player } from "./Player.js";
 import { loadPlayerFromStorage } from "./loadPlayer.js";
 import { avatarDisplayController } from "./avatarDisplayController.js";
