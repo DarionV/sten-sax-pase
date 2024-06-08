@@ -17,7 +17,7 @@ export const difficulties = {
     ],
     animationDuration: 1.5,
     delay: 0,
-    selectionWindow: 1.3,
+    selectionWindow: 1.6,
   },
   hard: {
     animations: [
