@@ -157,16 +157,16 @@ const gameController = (function () {
   let computerSelection = 0;
   let playerSelection = 0;
 
-  let hasMadeFirstChoice = false;
-  let hasMadeSecondChoice = false;
-  let allowSecondChoice = false;
-  let secondChoiceTimerInSeconds = 1.6;
-
   let isPlaying = false;
 
   let RESULT_DELAY_IN_SECONDS = 0.5;
   let ROUND_END_DELAY_IN_SECONDS = 1.5;
   let SCORE_LIMIT = 5;
+
+  const startRoundButton = document.querySelector(".js-start-round-button");
+  startRoundButton.addEventListener("click", () => {
+    startRound();
+  });
 
   const exitButton = document.querySelector(".js-exit-button");
   exitButton.addEventListener("click", gotoMainMenu);
@@ -222,63 +222,32 @@ const gameController = (function () {
   }
 
   function playRound(playerMove) {
-    startRound(playerMove);
-    gameRenderer.hideText();
+    if (isPlaying) return;
+    disableButtons();
+    makePlayerMove(playerMove);
+  }
+
+  function startRound() {
+    enableButtons();
     if (isGameOver()) resetScores();
-    // Kalla endast endRound vid första valet.
-    if (hasMadeSecondChoice || isPlaying) return;
-    isPlaying = true;
+    makeComputerMove();
+    gameRenderer.renderTimer();
+    gameRenderer.hideText();
+
+    setTimeout(() => {
+      gameRenderer.reloadPlayerAnimations();
+      gameRenderer.renderPlayerMove(0);
+    }, playerMoveDelayInSeconds * 1000);
+
+    setTimeout(() => {
+      gameRenderer.renderPlayerMove(playerSelection);
+      console.log("nu");
+    }, 2200);
+
     setTimeout(() => {
       evaluateResult();
+      gameRenderer.hideTimer();
     }, playerAnimationDurationInSeconds * 1000);
-    setTimeout(() => {
-      endRound();
-    }, (playerAnimationDurationInSeconds + ROUND_END_DELAY_IN_SECONDS) * 1000);
-  }
-
-  function startRound(playerMove) {
-    if (hasMadeSecondChoice) return;
-
-    if (hasMadeFirstChoice) {
-      if (!allowSecondChoice) return;
-      console.log("Second move");
-      hasMadeSecondChoice = true;
-      disableButtons();
-      makePlayerMove(playerMove);
-      return;
-    }
-
-    console.log("First move");
-    allowSecondChoice = true;
-
-    makeComputerMove();
-    hasMadeFirstChoice = true;
-
-    setTimeout(() => {
-      setTimeout(() => {
-        disableSecondChoice();
-      }, secondChoiceTimerInSeconds * 1000);
-
-      gameRenderer.renderTimer();
-      gameRenderer.reloadPlayerAnimations();
-      makePlayerMove(playerMove);
-      // allowSecondChoice = true;
-    }, playerMoveDelayInSeconds * 1000);
-  }
-
-  function endRound() {
-    console.log("Round end");
-    hasMadeFirstChoice = false;
-    hasMadeSecondChoice = false;
-    isPlaying = false;
-    // evaluateResult();
-    enableButtons();
-  }
-
-  function disableSecondChoice() {
-    allowSecondChoice = false;
-    gameRenderer.hideTimer();
-    disableButtons();
   }
 
   function evaluateResult() {
@@ -324,10 +293,10 @@ const gameController = (function () {
 
   function makePlayerMove(move) {
     playerSelection = move;
-    gameRenderer.renderPlayerMove(move);
   }
 
   function disableButtons() {
+    isPlaying = true;
     document.querySelector(".choices-container").classList.add("disabled");
     for (const button of buttons) {
       button.classList.add("disabled");
@@ -335,6 +304,7 @@ const gameController = (function () {
   }
 
   function enableButtons() {
+    isPlaying = false;
     document.querySelector(".choices-container").classList.remove("disabled");
     for (const button of buttons) {
       button.classList.remove("disabled");
@@ -356,10 +326,12 @@ const gameController = (function () {
     getComputerSelection,
     setPlayerSelection,
     setComputerSelection,
+    disableButtons,
   };
 })();
 
 const gameLoop = (function () {
+  gameController.disableButtons();
   gameRenderer.hideTimer();
   gameRenderer.renderCountDown();
   // gameController.resetScores();
