@@ -11,8 +11,11 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
   initializePlayer();
   intializeComputer();
 
+  const startGameButton = document.querySelector(".js-start-game-button");
+  startGameButton.addEventListener("click", startGame);
+
   const playButton = document.querySelector(".js-play-button");
-  playButton.addEventListener("click", startGame);
+  playButton.addEventListener("click", showTutorial);
 
   const arrowButtons = document.querySelectorAll(".js-arrow-button");
   arrowButtons.forEach((button) => {
@@ -41,6 +44,10 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
   function startGame() {
     storePlayer();
     location.href = "/game.html";
+  }
+
+  function showTutorial() {
+    document.querySelector(".js-tutorial-screen").style.visibility = "visible";
   }
 
   function loadPlayer() {
