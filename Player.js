@@ -5,15 +5,15 @@ export class Player {
     this.backgroundColor = backgroundColor;
     this.shadowColor = shadowColor;
   }
-  getName = () => name;
+  getName = () => this.name;
   setName = (name) => (this.name = name);
 
   getAvatar = () => avatar;
   setAvatar = (avatar) => (this.avatar = avatar);
 
-  getBackgroundColor = () => color;
+  getBackgroundColor = () => this.backgroundColor;
   setBackgroundColor = (newColor) => (this.backgroundColor = newColor);
 
-  getShadowColor = () => color;
+  getShadowColor = () => this.shadowColor;
   setShadowColor = (newColor) => (this.shadowColor = newColor);
 }
