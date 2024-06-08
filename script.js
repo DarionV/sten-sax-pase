@@ -266,9 +266,9 @@ const gameController = (function () {
     }, selectionWindow * 1000);
 
     setTimeout(() => {
+      if (!isPlaying) autoLose();
       disableButtons();
       gameRenderer.hideTimer();
-      if (isPlaying) autoLose();
     }, selectionWindow * 1000);
 
     setTimeout(() => {
