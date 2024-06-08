@@ -1,10 +1,11 @@
 import { bounceElement } from "./bounce.js";
-import { Player } from "./Player.js";
+// import { Player } from "./Player.js";
 import {
   loadComputerFromStorage,
   loadPlayerFromStorage,
 } from "./loadPlayer.js";
 import { avatarDisplayController } from "./avatarDisplayController.js";
+import { difficulties } from "./difficulty-db.js";
 
 const gameRenderer = (function () {
   const computerMove = document.querySelector("#computer-move");
@@ -17,9 +18,17 @@ const gameRenderer = (function () {
 
   const textOverlay = document.querySelector(".text-overlay");
 
+  let computerAnimations = [
+    "images/choices/computer_rock_fast.gif",
+    "images/choices/computer_paper_fast.gif",
+    "images/choices/computer_scissors_fast.gif",
+  ];
+  let playerAnimations = [];
+
+  const setComputerAnimations = (array) => (computerAnimations = array);
+  const setPlayerAnimations = (array) => (playerAnimations = array);
+
   const timer = document.querySelector(".timer");
-  // timer.style.animationDuration = "1s";
-  console.log(timer.style.animationDuration);
 
   const renderPlayerScore = (value) => {
     bounceElement(playerScore);
@@ -34,13 +43,13 @@ const gameRenderer = (function () {
   const renderComputerMove = (move) => {
     switch (move) {
       case 0:
-        computerMove.src = "/images/choices/computer_rock_fast.gif";
+        computerMove.src = computerAnimations[0];
         break;
       case 1:
-        computerMove.src = "/images/choices/computer_paper_fast.gif";
+        computerMove.src = computerAnimations[1];
         break;
       case 2:
-        computerMove.src = "/images/choices/computer_scissors_fast.gif";
+        computerMove.src = computerAnimations[2];
         break;
       default:
         console.log("Unable to render computer move");
@@ -72,13 +81,13 @@ const gameRenderer = (function () {
 
   function renderPlayerStartAnimation() {
     document.querySelector("#player-rock-container").style.zIndex = "10";
-    playerMoveRock.src = "/images/choices/player_rock.gif";
+    playerMoveRock.src = "images/choices/player_rock.gif";
   }
 
   function reloadPlayerAnimations() {
-    playerMoveRock.src = "/images/choices/player_rock_easy.gif";
-    playerMovePaper.src = "/images/choices/player_paper_easy.gif";
-    playerMoveScissors.src = "/images/choices/player_scissors_easy.gif";
+    playerMoveRock.src = playerAnimations[0];
+    playerMovePaper.src = playerAnimations[1];
+    playerMoveScissors.src = playerAnimations[2];
   }
 
   function hideTimer() {
@@ -126,6 +135,8 @@ const gameRenderer = (function () {
     hideText,
     renderCountDown,
     renderPlayerStartAnimation,
+    setComputerAnimations,
+    setPlayerAnimations,
   };
 })();
 
@@ -147,8 +158,9 @@ const gameController = (function () {
   );
   avatarDisplayController.updateComputerName(computer.name);
 
-  let playerMoveDelayInSeconds = 0.7;
-  let playerAnimationDurationInSeconds = playerMoveDelayInSeconds + 2;
+  let playerMoveDelayInSeconds = 0;
+  let playerAnimationDurationInSeconds = 0;
+  let selectionWindow = 0;
 
   let playerScore = 0;
   let computerScore = 0;
@@ -160,7 +172,6 @@ const gameController = (function () {
   let isPlaying = false;
 
   let RESULT_DELAY_IN_SECONDS = 0.5;
-  let ROUND_END_DELAY_IN_SECONDS = 1.5;
   let SCORE_LIMIT = 5;
 
   const startRoundButton = document.querySelector(".js-start-round-button");
@@ -242,11 +253,15 @@ const gameController = (function () {
     setTimeout(() => {
       gameRenderer.renderPlayerMove(playerSelection);
       console.log("nu");
-    }, 2200);
+    }, selectionWindow * 1000);
+
+    setTimeout(() => {
+      disableButtons();
+      gameRenderer.hideTimer();
+    }, selectionWindow * 1000);
 
     setTimeout(() => {
       evaluateResult();
-      gameRenderer.hideTimer();
     }, playerAnimationDurationInSeconds * 1000);
   }
 
@@ -277,6 +292,36 @@ const gameController = (function () {
   function isGameOver() {
     if (playerScore === SCORE_LIMIT || computerScore === SCORE_LIMIT) return 1;
     else return 0;
+  }
+
+  function initializeDifficulty() {
+    switch (computer.name) {
+      case "EasyBot":
+        selectionWindow = difficulties.easy.selectionWindow;
+        playerAnimationDurationInSeconds =
+          difficulties.easy.animationDuration + playerMoveDelayInSeconds;
+        playerMoveDelayInSeconds = difficulties.easy.delay;
+        gameRenderer.setPlayerAnimations(difficulties.easy.animations);
+        document.querySelector(".timer").classList.add("timer-easy");
+        break;
+      case "MediumBot":
+        selectionWindow = difficulties.medium.selectionWindow;
+        playerAnimationDurationInSeconds =
+          difficulties.medium.animationDuration + playerMoveDelayInSeconds;
+        playerMoveDelayInSeconds = difficulties.medium.delay;
+        gameRenderer.setPlayerAnimations(difficulties.medium.animations);
+        document.querySelector(".timer").classList.add("timer-medium");
+        break;
+      case "HardBot":
+        selectionWindow = difficulties.hard.selectionWindow;
+        playerAnimationDurationInSeconds =
+          difficulties.hard.animationDuration + playerMoveDelayInSeconds;
+        playerMoveDelayInSeconds = difficulties.hard.delay;
+        gameRenderer.setPlayerAnimations(difficulties.hard.animations);
+        document.querySelector(".timer").classList.add("timer-hard");
+      default:
+        break;
+    }
   }
 
   function win() {
@@ -327,10 +372,12 @@ const gameController = (function () {
     setPlayerSelection,
     setComputerSelection,
     disableButtons,
+    initializeDifficulty,
   };
 })();
 
 const gameLoop = (function () {
+  gameController.initializeDifficulty();
   gameController.disableButtons();
   gameRenderer.hideTimer();
   gameRenderer.renderCountDown();
