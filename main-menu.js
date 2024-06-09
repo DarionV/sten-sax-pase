@@ -65,7 +65,7 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
   }
 
   function initializePlayer() {
-    updatePlayerAvatar(player);
+    updatePlayerAvatar(player, false);
     avatarDisplayController.updatePlayerName(player.name);
   }
 
@@ -88,15 +88,15 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
   }
 
   function gotoPrevPlayerAvatar() {
-    updatePlayerAvatar(getPrevPlayerAvatar());
+    updatePlayerAvatar(getPrevPlayerAvatar(), true);
   }
 
   function gotoNextPlayerAvatar() {
-    updatePlayerAvatar(getNextPlayerAvatar());
+    updatePlayerAvatar(getNextPlayerAvatar(), true);
   }
 
-  function updatePlayerAvatar(avatar) {
-    avatarDisplayController.renderPlayerAvatar(avatar.avatar);
+  function updatePlayerAvatar(avatar, shouldBounce) {
+    avatarDisplayController.renderPlayerAvatar(avatar.avatar, shouldBounce);
     avatarDisplayController.updatePlayerAvatarColors(
       avatar.backgroundColor,
       avatar.shadowColor
@@ -115,7 +115,7 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
   }
 
   function updateComputerAvatar(avatar) {
-    avatarDisplayController.renderComputerAvatar(avatar.avatar);
+    avatarDisplayController.renderComputerAvatar(avatar.avatar, true);
     avatarDisplayController.updateComputerAvatarColors(
       avatar.backgroundColor,
       avatar.shadowColor

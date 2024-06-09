@@ -11,18 +11,24 @@ export const avatarDisplayController = (function () {
   const playerAvatar = document.querySelector(".js-player-avatar");
   const computerAvatar = document.querySelector(".js-computer-avatar");
 
-  function renderPlayerAvatar(avatar, color) {
-    renderAvatar(playerAvatarContainer, playerAvatar, avatar, color);
+  function renderPlayerAvatar(avatar, shouldBounce = false) {
+    renderAvatar(
+      playerAvatarContainer,
+      playerAvatar,
+      avatar,
+
+      shouldBounce
+    );
   }
 
-  function renderComputerAvatar(avatar, color) {
-    renderAvatar(computerAvatarContainer, computerAvatar, avatar, color);
+  function renderComputerAvatar(avatar, shouldBounce = false) {
+    renderAvatar(computerAvatarContainer, computerAvatar, avatar, shouldBounce);
   }
 
-  function renderAvatar(container, img, avatar, color) {
+  function renderAvatar(container, img, avatar, shouldBounce) {
     img.src = avatar;
-    container.style.backgroundColor = color;
-    bounceElement(container);
+
+    if (shouldBounce) bounceElement(container);
   }
 
   function updatePlayerAvatarColors(backgroundColor, shadowColor) {
