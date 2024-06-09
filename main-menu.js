@@ -86,12 +86,7 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
   }
 
   function createStartingPlayer() {
-    return new Player(
-      "Spelare",
-      "images/avatars/chicken.png",
-      "#D6C56B",
-      "#8D8052"
-    );
+    return new Player("", "images/avatars/chicken.png", "#D6C56B", "#8D8052");
   }
 
   function gotoPrevPlayerAvatar() {
