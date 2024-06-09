@@ -26,7 +26,7 @@ export const difficulties = {
       "images/choices/player_scissors_hard.gif",
     ],
     animationDuration: 1.1,
-    delay: 0,
-    selectionWindow: 1.1,
+    delay: 0.1,
+    selectionWindow: 1.3,
   },
 };
