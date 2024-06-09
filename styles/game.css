@@ -64,7 +64,9 @@ img {
 }
 
 .title-container {
-  /* padding: 34px; */
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
   grid-area: title;
   /* border: 1px solid brown; */
   z-index: 100;
@@ -260,9 +262,10 @@ button.disabled:hover {
     grid-template-areas: "player title computer";
   }
   h1 {
-    font-size: 5rem;
+    font-size: 3rem;
     max-width: 200px;
     text-align: center;
+    /* border: 1px solid red; */
   }
   h3 {
     font-size: 5rem;
