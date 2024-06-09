@@ -10,6 +10,9 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
   initializePlayer();
   intializeComputer();
 
+  const exitTutorialButton = document.querySelector(".js-exit-tutorial-button");
+  exitTutorialButton.addEventListener("click", hideTutorial);
+
   const tutorialButton = document.querySelector(".js-tutorial-button");
   tutorialButton.addEventListener("click", showTutorial);
 
@@ -57,6 +60,10 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
 
   function showTutorial() {
     document.querySelector(".js-tutorial-screen").style.visibility = "visible";
+  }
+
+  function hideTutorial() {
+    document.querySelector(".js-tutorial-screen").style.visibility = "hidden";
   }
 
   function loadPlayer() {
