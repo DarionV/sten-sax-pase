@@ -7,7 +7,7 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
 import { difficulties } from "./difficulty-db.js";
 
 const gameRenderer = (function () {
-  const timeUpScreen = document.querySelector(".js-time-up-screen");
+  const flashContainer = document.querySelector(".js-flash-screen");
   const computerMove = document.querySelector("#computer-move");
   const playerMoveRock = document.querySelector("#player-move-rock");
   const playerMovePaper = document.querySelector("#player-move-paper");
@@ -133,13 +133,16 @@ const gameRenderer = (function () {
     }
   };
 
-  function renderTimeUp() {
-    console.log("time up");
+  function flashScreen(color) {
+    console.log(color);
+    if (color === "red") flashContainer.style.backgroundColor = "red";
+    if (color === "green") flashContainer.style.backgroundColor = "green";
 
     setTimeout(() => {
-      timeUpScreen.classList.remove("time-up");
+      flashContainer.classList.remove("flash");
+      flashContainer.style.backgroundColor = "unset";
     }, 1000);
-    timeUpScreen.classList.add("time-up");
+    flashContainer.classList.add("flash");
   }
 
   return {
@@ -156,7 +159,7 @@ const gameRenderer = (function () {
     renderPlayerStartAnimation,
     setComputerAnimations,
     setPlayerAnimations,
-    renderTimeUp,
+    flashScreen,
     hideStartRoundButton,
     showStartRoundButton,
   };
@@ -320,7 +323,7 @@ const gameController = (function () {
   }
 
   function autoLose() {
-    gameRenderer.renderTimeUp();
+    gameRenderer.flashScreen("red");
     switch (computerSelection) {
       case 0:
         makePlayerMove(2);
@@ -368,6 +371,7 @@ const gameController = (function () {
 
   function win() {
     playerScore++;
+    gameRenderer.flashScreen("green");
     gameRenderer.renderPlayerScore(playerScore);
     if (isGameOver()) gameRenderer.renderGameOverText("Du vann!");
   }
