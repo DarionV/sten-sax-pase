@@ -6,8 +6,8 @@ export const difficulties = {
       "images/choices/player_scissors_easy.gif",
     ],
     animationDuration: 2.2,
-    delay: 0.6,
-    selectionWindow: 2.2,
+    delay: 1.2,
+    selectionWindow: 2.8,
   },
   medium: {
     animations: [
@@ -16,8 +16,8 @@ export const difficulties = {
       "images/choices/player_scissors_easy.gif",
     ],
     animationDuration: 1.5,
-    delay: 0,
-    selectionWindow: 1.6,
+    delay: 0.6,
+    selectionWindow: 2.2,
   },
   hard: {
     animations: [

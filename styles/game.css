@@ -195,11 +195,11 @@ button.disabled:hover {
 }
 
 .timer-easy:after {
-  animation-duration: 2.2s;
+  animation-duration: 2.8s;
 }
 
 .timer-medium:after {
-  animation-duration: 1.6s;
+  animation-duration: 2.2s;
 }
 
 .timer-hard:after {
