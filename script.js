@@ -214,15 +214,6 @@ const gameController = (function () {
     if (e.key == "h") playRound(2);
   });
 
-  // const getPlayerScore = () => playerScore;
-  // const getComputerScore = () => computerScore;
-
-  // const getPlayerSelection = () => playerSelection;
-  // const getComputerSelection = () => computerSelection;
-
-  // const setPlayerSelection = (value) => (playerSelection = value);
-  // const setComputerSelection = (value) => (computerSelection = value);
-
   const increasePlayerScore = () => {
     player.increaseScore();
     gameRenderer.renderPlayerScore(player.score);
