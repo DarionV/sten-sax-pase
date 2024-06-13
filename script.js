@@ -165,31 +165,25 @@ const gameController = (function () {
     }
   }
 
+  function setDifficulty(difficulty) {
+    selectionWindow = difficulties[difficulty].selectionWindow;
+    playerAnimationDurationInSeconds =
+      difficulties[difficulty].animationDuration + playerMoveDelayInSeconds;
+    playerMoveDelayInSeconds = difficulties[difficulty].delay;
+    gameRenderer.setPlayerAnimations(difficulties[difficulty].animations);
+    document.querySelector(".timer").classList.add(`timer-${difficulty}`);
+  }
+
   function initializeDifficulty() {
     switch (computer.name) {
       case "EasyBot":
-        selectionWindow = difficulties.easy.selectionWindow;
-        playerAnimationDurationInSeconds =
-          difficulties.easy.animationDuration + playerMoveDelayInSeconds;
-        playerMoveDelayInSeconds = difficulties.easy.delay;
-        gameRenderer.setPlayerAnimations(difficulties.easy.animations);
-        document.querySelector(".timer").classList.add("timer-easy");
+        setDifficulty("easy");
         break;
       case "MediumBot":
-        selectionWindow = difficulties.medium.selectionWindow;
-        playerAnimationDurationInSeconds =
-          difficulties.medium.animationDuration + playerMoveDelayInSeconds;
-        playerMoveDelayInSeconds = difficulties.medium.delay;
-        gameRenderer.setPlayerAnimations(difficulties.medium.animations);
-        document.querySelector(".timer").classList.add("timer-medium");
+        setDifficulty("medium");
         break;
       case "HardBot":
-        selectionWindow = difficulties.hard.selectionWindow;
-        playerAnimationDurationInSeconds =
-          difficulties.hard.animationDuration + playerMoveDelayInSeconds;
-        playerMoveDelayInSeconds = difficulties.hard.delay;
-        gameRenderer.setPlayerAnimations(difficulties.hard.animations);
-        document.querySelector(".timer").classList.add("timer-hard");
+        setDifficulty("hard");
       default:
         break;
     }
