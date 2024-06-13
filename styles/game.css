@@ -148,6 +148,7 @@ button.disabled:hover {
   padding: 10px;
   opacity: 50%;
   cursor: pointer;
+  z-index: 30;
   /* border: 1px solid red; */
 }
 
