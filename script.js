@@ -232,6 +232,14 @@ const gameController = (function () {
     location.href = "/index.html";
   }
 
+  initializeDifficulty();
+  disableButtons();
+  gameRenderer.renderCountDown();
+  setTimeout(() => {
+    gameRenderer.showStartRoundButton();
+  }, 1500);
+  gameRenderer.renderPlayerStartAnimation();
+
   return {
     increaseComputerScore,
     increasePlayerScore,
@@ -240,14 +248,4 @@ const gameController = (function () {
     disableButtons,
     initializeDifficulty,
   };
-})();
-
-(function () {
-  gameController.initializeDifficulty();
-  gameController.disableButtons();
-  gameRenderer.renderCountDown();
-  setTimeout(() => {
-    gameRenderer.showStartRoundButton();
-  }, 1500);
-  gameRenderer.renderPlayerStartAnimation();
 })();
