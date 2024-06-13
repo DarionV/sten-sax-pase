@@ -6,24 +6,11 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
 import { difficulties } from "./difficulty-db.js";
 import { gameRenderer } from "./gameRenderer.js";
 
-const gameController = (function () {
+(function () {
+  // -----------------------------------------------------------//
   let player = loadPlayerFromStorage();
   if (player.getName() === "") player.setName("Spelare");
   let computer = loadComputerFromStorage();
-
-  avatarDisplayController.renderPlayerAvatar(player.getAvatar());
-  avatarDisplayController.updatePlayerAvatarColors(
-    player.backgroundColor,
-    player.shadowColor
-  );
-  avatarDisplayController.updatePlayerName(player.getName());
-
-  avatarDisplayController.renderComputerAvatar(computer.getAvatar());
-  avatarDisplayController.updateComputerAvatarColors(
-    computer.backgroundColor,
-    computer.shadowColor
-  );
-  avatarDisplayController.updateComputerName(computer.getName());
 
   let playerMoveDelayInSeconds = 0;
   let playerAnimationDurationInSeconds = 0;
@@ -33,6 +20,11 @@ const gameController = (function () {
 
   let RESULT_DELAY_IN_SECONDS = 0.5;
   let SCORE_LIMIT = 5;
+
+  avatarDisplayController.initializeComputerAvatar(computer);
+  avatarDisplayController.initializePlayerAvatar(player);
+
+  // ------------------------------------------------------------- //
 
   const startRoundButton = document.querySelector(".js-start-round-button");
   startRoundButton.addEventListener("click", () => {
@@ -225,6 +217,7 @@ const gameController = (function () {
   function gotoMainMenu() {
     location.href = "/index.html";
   }
+  //---------------Initialize game-------------------------//
 
   initializeDifficulty();
   disableButtons();
@@ -233,6 +226,7 @@ const gameController = (function () {
     gameRenderer.showStartRoundButton();
   }, 1500);
   gameRenderer.renderPlayerStartAnimation();
+  // --------------------------------------------------------//
 
   return {
     increaseComputerScore,

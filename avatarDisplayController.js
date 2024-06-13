@@ -54,6 +54,18 @@ export const avatarDisplayController = (function () {
     container.style.boxShadow = "0px 10px 0px" + shadowColor;
   }
 
+  function initializePlayerAvatar(player) {
+    renderPlayerAvatar(player.getAvatar());
+    updatePlayerAvatarColors(player.backgroundColor, player.shadowColor);
+    updatePlayerName(player.getName());
+  }
+
+  function initializeComputerAvatar(computer) {
+    renderPlayerAvatar(computer.getAvatar());
+    updateComputerAvatarColors(computer.backgroundColor, computer.shadowColor);
+    updateComputerName(computer.getName());
+  }
+
   const getPlayerAvatar = () => playerAvatar.getAttribute("src");
   const getComputerAvatar = () => computerAvatar.getAttribute("src");
 
@@ -66,5 +78,7 @@ export const avatarDisplayController = (function () {
     updateComputerAvatarColors,
     updateComputerName,
     updatePlayerName,
+    initializeComputerAvatar,
+    initializePlayerAvatar,
   };
 })();
