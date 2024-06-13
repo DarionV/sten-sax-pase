@@ -134,7 +134,6 @@ const gameRenderer = (function () {
   };
 
   function flashScreen(color) {
-    console.log(color);
     if (color === "red") flashContainer.style.backgroundColor = "red";
     if (color === "green") flashContainer.style.backgroundColor = "green";
 
@@ -188,13 +187,6 @@ const gameController = (function () {
   let playerAnimationDurationInSeconds = 0;
   let selectionWindow = 0;
 
-  let playerScore = 0;
-  let computerScore = 0;
-
-  //   0 = Sten, 1 = Sax, 2 = Påse
-  let computerSelection = 0;
-  let playerSelection = 0;
-
   let isPlaying = false;
 
   let RESULT_DELAY_IN_SECONDS = 0.5;
@@ -222,29 +214,29 @@ const gameController = (function () {
     if (e.key == "h") playRound(2);
   });
 
-  const getPlayerScore = () => playerScore;
-  const getComputerScore = () => computerScore;
+  // const getPlayerScore = () => playerScore;
+  // const getComputerScore = () => computerScore;
 
-  const getPlayerSelection = () => playerSelection;
-  const getComputerSelection = () => computerSelection;
+  // const getPlayerSelection = () => playerSelection;
+  // const getComputerSelection = () => computerSelection;
 
-  const setPlayerSelection = (value) => (playerSelection = value);
-  const setComputerSelection = (value) => (computerSelection = value);
+  // const setPlayerSelection = (value) => (playerSelection = value);
+  // const setComputerSelection = (value) => (computerSelection = value);
 
   const increasePlayerScore = () => {
-    playerScore++;
-    gameRenderer.renderPlayerScore(playerScore);
+    player.increaseScore();
+    gameRenderer.renderPlayerScore(player.score);
   };
   const increaseComputerScore = () => {
-    computerScore++;
-    gameRenderer.renderComputerScore(computerScore);
+    computer.increaseScore();
+    gameRenderer.renderComputerScore(computer.score);
   };
 
   const resetScores = () => {
-    playerScore = 0;
-    computerScore = 0;
-    gameRenderer.renderComputerScore(computerScore);
-    gameRenderer.renderPlayerScore(playerScore);
+    player.resetScore();
+    computer.resetScore();
+    gameRenderer.renderComputerScore(computer.score);
+    gameRenderer.renderPlayerScore(player.score);
   };
 
   //   0 = Sten, 1 = Sax, 2 = Påse
@@ -255,7 +247,7 @@ const gameController = (function () {
   function makeComputerMove() {
     const move = generateRandomMove();
     gameRenderer.renderComputerMove(move);
-    computerSelection = move;
+    computer.selection = move;
   }
 
   function playRound(playerMove) {
@@ -278,7 +270,7 @@ const gameController = (function () {
     }, playerMoveDelayInSeconds * 1000);
 
     setTimeout(() => {
-      gameRenderer.renderPlayerMove(playerSelection);
+      gameRenderer.renderPlayerMove(player.selection);
     }, selectionWindow * 1000);
 
     setTimeout(() => {
@@ -298,18 +290,18 @@ const gameController = (function () {
 
   function evaluateResult() {
     setTimeout(() => {
-      switch (playerSelection) {
+      switch (player.selection) {
         case 0:
-          if (computerSelection === 1) lose();
-          if (computerSelection === 2) win();
+          if (computer.selection === 1) lose();
+          if (computer.selection === 2) win();
           break;
         case 1:
-          if (computerSelection === 0) win();
-          if (computerSelection === 2) lose();
+          if (computer.selection === 0) win();
+          if (computer.selection === 2) lose();
           break;
         case 2:
-          if (computerSelection === 0) lose();
-          if (computerSelection === 1) win();
+          if (computer.selection === 0) lose();
+          if (computer.selection === 1) win();
           break;
         default:
           break;
@@ -318,13 +310,14 @@ const gameController = (function () {
   }
 
   function isGameOver() {
-    if (playerScore === SCORE_LIMIT || computerScore === SCORE_LIMIT) return 1;
+    if (player.score === SCORE_LIMIT || computer.score === SCORE_LIMIT)
+      return 1;
     else return 0;
   }
 
   function autoLose() {
     gameRenderer.flashScreen("red");
-    switch (computerSelection) {
+    switch (computer.selection) {
       case 0:
         makePlayerMove(2);
         gameRenderer.renderPlayerMove(2);
@@ -370,20 +363,20 @@ const gameController = (function () {
   }
 
   function win() {
-    playerScore++;
+    player.increaseScore();
     gameRenderer.flashScreen("green");
-    gameRenderer.renderPlayerScore(playerScore);
+    gameRenderer.renderPlayerScore(player.score);
     if (isGameOver()) gameRenderer.renderGameOverText("Du vann!");
   }
 
   function lose() {
-    computerScore++;
-    gameRenderer.renderComputerScore(computerScore);
+    computer.increaseScore();
+    gameRenderer.renderComputerScore(computer.score);
     if (isGameOver()) gameRenderer.renderGameOverText("Du förlorade");
   }
 
   function makePlayerMove(move) {
-    playerSelection = move;
+    player.selection = move;
   }
 
   function disableButtons() {
@@ -407,16 +400,10 @@ const gameController = (function () {
   }
 
   return {
-    getComputerScore,
-    getPlayerScore,
     increaseComputerScore,
     increasePlayerScore,
     resetScores,
     makeComputerMove,
-    getPlayerSelection,
-    getComputerSelection,
-    setPlayerSelection,
-    setComputerSelection,
     disableButtons,
     initializeDifficulty,
   };
