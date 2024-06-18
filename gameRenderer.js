@@ -64,7 +64,7 @@ export const gameRenderer = (function () {
   function renderGameOverText(message) {
     textOverlay.textContent = message;
     setTimeout(() => {
-      // hideText();
+      hideText();
     }, 2000);
   }
 
