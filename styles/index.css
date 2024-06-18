@@ -5,7 +5,6 @@ h1 {
 
 h2 {
   font-size: 3rem;
-  /* margin: 20px; */
 }
 
 h3 {
@@ -14,17 +13,12 @@ h3 {
 
 .players-selection-container {
   margin-bottom: 20px;
-  /* border: 1px solid red; */
   width: 100%;
   flex-direction: column;
 }
 
 .player-selection-container * {
   margin: 8px;
-}
-
-.player-selection-container {
-  /* border: 1px solid green; */
 }
 
 .prev-btn:hover,
@@ -143,7 +137,6 @@ mark {
     flex-direction: row;
     gap: 50px;
     margin-bottom: 50px;
-    /* border: 1px solid red; */
   }
 
   .players-selection-container div:last-child {

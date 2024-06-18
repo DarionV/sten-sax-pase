@@ -1,5 +1,4 @@
 body {
-  /* border: 5px solid rgb(16, 177, 131); */
   user-select: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -20,7 +19,6 @@ img {
 }
 
 .header-container {
-  /* border: 3px solid red; */
   width: 100%;
   z-index: 15;
   display: grid;
@@ -35,9 +33,6 @@ img {
   top: 42%;
   left: 0;
   z-index: 100;
-  /* border: 1px solid red; */
-  /* background-color: rgba(255, 255, 255, 0.8); */
-  /* backdrop-filter: blur(5px); */
   -webkit-text-stroke: 3px rgb(255, 255, 255);
 
   padding-top: 25px;
@@ -48,7 +43,6 @@ img {
 }
 
 .stats-container {
-  /* border: 1px solid blue; */
   padding: 12px;
   gap: 10px;
 }
@@ -69,12 +63,10 @@ img {
   justify-content: center;
   padding-top: 40px;
   grid-area: title;
-  /* border: 1px solid brown; */
   z-index: 100;
 }
 
 .game-container {
-  /* border: 2px solid green; */
   width: 100%;
   flex: 4;
   display: flex;
@@ -83,14 +75,12 @@ img {
 
 .hands-container.player {
   position: absolute;
-  /* border: 1px solid rgb(0, 72, 255); */
   left: 0;
   height: 50vw;
   max-height: 200px;
 }
 .hands-container.computer {
   position: absolute;
-  /* border: 1px solid red; */
   right: 0;
   height: 50vw;
   max-height: 200px;
@@ -102,17 +92,7 @@ img {
   object-fit: contain;
 }
 
-/* .hands-container.player img {
-  height: 300px;
-  width: 300px;
-  object-fit: contain;
-  position: absolute;
-  top: 0;
-  left: 0;
-} */
-
 .choices-container {
-  /* border: 1px solid black; */
   flex: 1;
   width: 100%;
   gap: 32px;
@@ -149,7 +129,6 @@ button.disabled:hover {
   opacity: 50%;
   cursor: pointer;
   z-index: 30;
-  /* border: 1px solid red; */
 }
 
 .exit-button img {
@@ -171,11 +150,9 @@ button.disabled:hover {
 
 /* TIMER */
 .timer {
-  /* opacity: 50%; */
   display: none;
   width: 50px;
   height: 50px;
-  /* border: 2px solid DeepPink; */
   border-radius: 50%;
   background-image: linear-gradient(90deg, rgb(255, 255, 255) 50%, #000 50%);
   position: relative;
@@ -266,7 +243,6 @@ button.disabled:hover {
     font-size: 3rem;
     max-width: 200px;
     text-align: center;
-    /* border: 1px solid red; */
   }
   h3 {
     font-size: 5rem;
@@ -286,7 +262,6 @@ button.disabled:hover {
     display: inline;
   }
   .hands-container.player {
-    /* border: 1px solid rgb(0, 72, 255); */
     left: 25vw;
     height: 20vw;
     min-height: 200px;
@@ -294,8 +269,6 @@ button.disabled:hover {
     top: -7vw;
   }
   .hands-container.computer {
-    /* position: absolute; */
-    /* border: 1px solid red; */
     right: 25vw;
     height: 20vw;
     min-height: 200px;
