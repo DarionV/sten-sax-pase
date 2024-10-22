@@ -55,7 +55,7 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
 
   function startGame() {
     storePlayer();
-    location.href = "/game.html";
+    location.href = "./game.html";
   }
 
   function showTutorial() {
