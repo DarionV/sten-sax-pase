@@ -55,7 +55,7 @@ import { avatarDisplayController } from "./avatarDisplayController.js";
 
   function startGame() {
     storePlayer();
-    location.href = "./game.html";
+    location.href = "sten-sax-pase/game.html";
   }
 
   function showTutorial() {
