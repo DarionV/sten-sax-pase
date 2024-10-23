@@ -215,7 +215,7 @@ import { gameRenderer } from "./gameRenderer.js";
   }
 
   function gotoMainMenu() {
-    location.href = "/index.html";
+    location.href = "/sten-sax-pase.html";
   }
   //---------------Initialize game-------------------------//
 
